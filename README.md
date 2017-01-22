@@ -11,7 +11,7 @@ Roots is a program for ancestry research.
 
 ## Build
 ### Setup Eclipse - Neon Configuration
-* [Eclipse IDE for Java Developsers (Version Neon 2)](http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon2)
+* [Eclipse IDE for Java Developers (Version Neon 2)](http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon2)
 * Buildship: Gradle Plugin (Version 2.x): http://download.eclipse.org/buildship/updates/e46/releases/2.x
 * Window Builder Pro (Version Neon 4.6): http://download.eclipse.org/windowbuilder/WB/release/4.6/
 * JPA Diagram Editor (Version WTP 3.8.1): http://download.eclipse.org/releases/neon/
