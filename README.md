@@ -20,4 +20,4 @@ Roots is a program for ancestry research.
 ...
 
 ## License
-Apache License Version 2: https://www.apache.org/licenses/LICENSE-2.0
+![GNU General Public License 3](https://www.gnu.org/graphics/gplv3-127x51.png)
