@@ -15,6 +15,11 @@ Roots is a program for ancestry research.
  * Buildship: Gradle Plugin (Version 2.x): http://download.eclipse.org/buildship/updates/e46/releases/2.x
  * Window Builder Pro (Version Neon 4.6): http://download.eclipse.org/windowbuilder/WB/release/4.6/
  * JPA Diagram Editor (Version WTP 3.8.1): http://download.eclipse.org/releases/neon/
+ 
+   Web, XML, Java EE and OSGi Enterprise Development:
+    + Dali Java Persistence Tools - EclipseLink JPA Support
+    + Dali Java Persistence Tools - JPA Diagram Editor
+    + Dali Java Persistence Tools - JPA Support
 
 ### Build with Gradle
 ...
