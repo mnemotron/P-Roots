@@ -1,0 +1,25 @@
+// PLUGINS
+apply plugin: 'java'
+
+// PARAMETER
+version='1.0'
+
+// MANIFEST
+jar {
+    manifest {
+        attributes("Implementation-Title": rootProject.name,
+                   "Implementation-Version": version)
+    }
+}
+
+repositories {
+	flatDir {
+		dirs '../roots.entities/build/libs'
+	}
+}
+
+// DEPENDENCIES
+dependencies {
+    compile "roots.entities:roots.entities:1.0"
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+}
