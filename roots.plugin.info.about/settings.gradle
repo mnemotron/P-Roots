@@ -1,0 +1,14 @@
+rootProject.name = 'roots.plugin.info.about'
+
+// COMPOSITE BUILDS
+includeBuild('../roots.entities'){
+    dependencySubstitution {
+        substitute module('roots.entities:roots.entities') with project(':')
+    }
+}
+
+includeBuild('../roots.plugin'){
+    dependencySubstitution {
+        substitute module('roots.plugin:roots.plugin') with project(':')
+    }
+}

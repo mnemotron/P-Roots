@@ -1,0 +1,34 @@
+// PLUGINS
+apply plugin: 'java'
+
+// PARAMETER
+version='1.0'
+
+// MANIFEST
+jar {
+    manifest {
+        attributes("Implementation-Title": rootProject.name,
+                   "Implementation-Version": version)
+    }
+}
+
+repositories {
+	flatDir {
+		dirs '../roots.entities/build/libs', '../roots.plugin/build/libs'
+	}
+}
+
+// DEPENDENCIES
+dependencies {
+    compile "roots.entities:roots.entities:1.0"
+    compile "roots.plugin:roots.plugin:1.0"
+}
+
+// SOURCE SET
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/java/' 
+        }
+    }
+}
