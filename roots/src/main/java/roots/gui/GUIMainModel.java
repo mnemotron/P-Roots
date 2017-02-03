@@ -43,7 +43,13 @@ public class GUIMainModel
 		this.guimaincontroller = p_guimaincontroller;
 
 		// -- read configuration
-		this.configcontroller = ConfigController.getConfigControllerInstance();
+		try
+		{
+			this.configcontroller = ConfigController.getConfigControllerInstance();
+		} catch (Exception e)
+		{
+			this.guimaincontroller.logStackTrace(e.getStackTrace());
+		}
 
 		// -- init plugins
 		this.plugincontroller = PluginController.getPluginControllerInstance();
@@ -62,7 +68,7 @@ public class GUIMainModel
 	{
 		this.plugincontroller.loadPlugins(guimaincontroller);
 	}
-	
+
 	public void fireProgramClosed(IPlugin p_iplugin)
 	{
 		this.plugincontroller.fireSingleClosed(p_iplugin);
@@ -73,7 +79,8 @@ public class GUIMainModel
 		guimaincontroller.dbConnectionFailure();
 	}
 
-	private void dbConnected(HibernateController.databases p_database, String p_dblocation, String p_dbname, String p_username, String p_password, boolean p_keeppassword)
+	private void dbConnected(HibernateController.databases p_database, String p_dblocation, String p_dbname,
+			String p_username, String p_password, boolean p_keeppassword)
 
 	{
 		// succesfully connected
@@ -91,7 +98,13 @@ public class GUIMainModel
 			configcontroller.getConfigentity().setDbpassword(p_password);
 		}
 
-		configcontroller.saveConfig();
+		try
+		{
+			configcontroller.saveConfig();
+		} catch (Exception e)
+		{
+			this.guimaincontroller.logStackTrace(e.getStackTrace());
+		}
 
 		// select repositories
 
@@ -118,7 +131,8 @@ public class GUIMainModel
 		}
 	}
 
-	public void loginDatabase(final HibernateController.databases p_database, final String p_dblocation, final String p_dbname, final String p_username, final String p_password, final boolean p_keeppassword)
+	public void loginDatabase(final HibernateController.databases p_database, final String p_dblocation,
+			final String p_dbname, final String p_username, final String p_password, final boolean p_keeppassword)
 	{
 		dbconstatus = GUIMainModel.dbconnectionstatus.TRYTOCONNECT;
 
@@ -129,7 +143,8 @@ public class GUIMainModel
 
 				try
 				{
-					hibernatecontroller = new HibernateController(p_database, p_dblocation, p_dbname, p_username, p_password);
+					hibernatecontroller = new HibernateController(p_database, p_dblocation, p_dbname, p_username,
+							p_password);
 
 					hibernatecontroller.buildSessionFactory();
 
@@ -165,7 +180,15 @@ public class GUIMainModel
 	public void setLanguage(ITranslation.enum_language p_language)
 	{
 		this.configcontroller.getConfigentity().setLanguage(p_language);
-		this.configcontroller.saveConfig();
+
+		try
+		{
+			this.configcontroller.saveConfig();
+		} catch (Exception e)
+		{
+			this.guimaincontroller.logStackTrace(e.getStackTrace());
+		}
+
 		this.translationlistener.setLanguage(p_language);
 		this.translationlistener.runTranslationListener();
 	}
@@ -243,12 +266,12 @@ public class GUIMainModel
 		{
 
 			UIManager.setLookAndFeel("com.pagosoft.plaf.PgsLookAndFeel");
-			 
-//			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-//			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
-//			UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-			
+
+			// UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			// UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			// UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+			// UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+
 		} catch (ClassNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -266,28 +289,28 @@ public class GUIMainModel
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-//		if (configcontroller.getConfigentity().getLookandfeel() != null)
-//		{
-//			GUILookAndFeel.setLookAndFeel(configcontroller.getConfigentity().getLookandfeel());
-//		}
+
+		// if (configcontroller.getConfigentity().getLookandfeel() != null)
+		// {
+		// GUILookAndFeel.setLookAndFeel(configcontroller.getConfigentity().getLookandfeel());
+		// }
 	}
-	
+
 	public void saveOrUpdate(Object p_object)
 	{
 		this.hibernatecontroller.saveOrUpdate(p_object);
 	}
-	
+
 	public void beginTransaction()
 	{
 		this.hibernatecontroller.beginTransaction();
 	}
-	
+
 	public void commitTransaction()
 	{
 		this.hibernatecontroller.commitTransaction();
 	}
-	
+
 	public Repinfo getRepinfo()
 	{
 		return repinfo;
@@ -297,7 +320,7 @@ public class GUIMainModel
 	{
 		this.repinfo = repinfo;
 	}
-	
+
 	public Query createQuery(String p_query)
 	{
 		return this.hibernatecontroller.createQuery(p_query);

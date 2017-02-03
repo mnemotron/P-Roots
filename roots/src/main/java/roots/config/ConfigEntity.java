@@ -1,14 +1,15 @@
 package roots.config;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import roots.core.hibernate.HibernateController;
 import roots.gui.GUILookAndFeel;
 import roots.translation.ITranslation;
 
-public class ConfigEntity implements Serializable
+@XmlRootElement
+public class ConfigEntity
 {
-	private static final long serialVersionUID = 1L;
+
 	private static final String c_forfedre_version = "1.0.0-alpha";
 	private static final String c_forfedre_title = "Roots";
 

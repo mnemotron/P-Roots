@@ -7,7 +7,7 @@ public class SystemProperties
 	
 	public final static String c_log_fileextension = ".log";
 	
-	public static final String c_config_file = "config.db";
+	public static final String c_config_file = "config.xml";
 
 	public static String getFileSeparator()
 	{

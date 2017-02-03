@@ -1,14 +1,10 @@
 package roots.config;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import roots.core.SystemProperties;
 
 public class ConfigController
@@ -17,7 +13,7 @@ public class ConfigController
 	private ConfigEntity configentity;
 	private File configfile;
 
-	public static final ConfigController getConfigControllerInstance()
+	public static final ConfigController getConfigControllerInstance() throws Exception
 	{
 
 		if (ConfigController.configcontroller == null)
@@ -28,14 +24,17 @@ public class ConfigController
 		return ConfigController.configcontroller;
 	}
 
-	private ConfigController()
+	private ConfigController() throws Exception
 	{
 		configfile = new File(SystemProperties.c_config_file);
+
 		this.configentity = new ConfigEntity();
 
 		try
 		{
+
 			this.readConfig();
+
 		} catch (Exception e)
 		{
 			this.saveConfig();
@@ -54,44 +53,17 @@ public class ConfigController
 
 	private void readConfig() throws Exception
 	{
-		FileInputStream fis = null;
-		ObjectInputStream in = null;
-		ConfigEntity config = null;
-
-		fis = new FileInputStream(configfile);
-		in = new ObjectInputStream(fis);
-		config = (ConfigEntity) in.readObject();
-		in.close();
-
-		configentity = config;
+		JAXBContext context = JAXBContext.newInstance(ConfigEntity.class);
+		Unmarshaller um = context.createUnmarshaller();
+		this.configentity = (ConfigEntity) um.unmarshal(this.configfile);
 	}
 
-	public void saveConfig()
+	public void saveConfig() throws Exception
 	{
-		ObjectOutputStream out = null;
-
-		try
-		{
-
-			BufferedOutputStream bo = new BufferedOutputStream(new FileOutputStream(configfile));
-			out = new ObjectOutputStream(bo);
-			out.writeObject(configentity);
-			out.close();
-
-		} catch (FileNotFoundException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		JAXBContext context = JAXBContext.newInstance(ConfigEntity.class);
+		Marshaller m = context.createMarshaller();
+		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		m.marshal(this.configentity, this.configfile);
 	}
 
 }
