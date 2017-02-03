@@ -1,0 +1,55 @@
+// PLUGINS
+apply plugin: 'java'
+apply plugin: 'application'
+
+// PARAMETER
+def versionFile = 'version.properties'
+
+mainClassName = 'roots.StartRoots'
+
+
+// TASK: Build Version
+task buildVersion {
+	doLast {
+  		Properties props = new Properties()
+  		File propsFile = new File(versionFile)
+  		props.load(propsFile.newDataInputStream())
+  		Integer nextbuildnum = ( ((props.getProperty('BuildNumber')) as BigDecimal) + 1 )
+  		props.setProperty('BuildNumber', nextbuildnum.toString())
+  		props.store(propsFile.newWriter(), null)
+  		
+  		rootProject.version = props.getProperty('MajorRelease') + '-' + nextbuildnum + '-' + props.getProperty('DevState')
+  		
+  		println rootProject.version
+  }
+}
+
+jar.dependsOn buildVersion
+
+// MANIFEST
+jar {
+    manifest {
+        attributes("Implementation-Title": rootProject.name,
+                   "Implementation-Version": rootProject.version)
+    }
+}
+
+// DEPENDENCIES
+dependencies {
+    compile "roots.entities:roots.entities:1.0"
+    compile "roots.plugin:roots.plugin:1.0"
+	compile fileTree(dir: 'libs/hibernate', include: ['*.jar'])
+	compile fileTree(dir: 'libs/jdbc', include: ['*.jar'])
+	compile fileTree(dir: 'libs/log4j', include: ['*.jar'])
+	compile fileTree(dir: 'libs/lookandfeel', include: ['*.jar'])
+	compile fileTree(dir: '../roots.entities/libs/eclipselink-2.5.2', include: ['*.jar'])
+}
+
+// SOURCE SET
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/java/' 
+        }
+    }
+}
