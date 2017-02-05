@@ -11,12 +11,12 @@ import roots.entities.Repinfo;
 
 import roots.config.ConfigController;
 import roots.config.ConfigEntity;
-import roots.config.gui.ConfigPluginController;
 import roots.core.gui.GUIMainController;
 import roots.core.hibernate.HibernateController;
 import roots.logger.LogController;
 import roots.plugin.IPlugin;
 import roots.plugin.PluginController;
+import roots.plugin.config.gui.ConfigPluginController;
 import roots.translation.ITranslation;
 import roots.translation.TranslationListener;
 

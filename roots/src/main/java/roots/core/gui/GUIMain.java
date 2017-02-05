@@ -3,6 +3,7 @@ package roots.core.gui;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
@@ -377,7 +378,15 @@ public class GUIMain
 
 	protected void addJMenuItemRoots(JMenuItem p_menuitem)
 	{
+		Component[] components = this.menu_forfedre.getMenuComponents();
+		this.menu_forfedre.removeAll();
 		this.menu_forfedre.add(p_menuitem);
+		
+		for (Component c : components)
+		{
+			this.menu_forfedre.add(c);
+		}
+		
 	}
 
 	protected void addJMenuItemInfo(JMenuItem p_menuitem)

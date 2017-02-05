@@ -1,7 +1,8 @@
-package roots.config.gui;
+package roots.plugin.config.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
@@ -9,6 +10,7 @@ import javax.swing.JMenuItem;
 import roots.plugin.IPlugin;
 import roots.plugin.IPluginManager;
 import roots.translation.ITranslation.enum_language;
+import roots.translation.TPForfedre;
 
 public class ConfigPluginController implements IPlugin
 {
@@ -16,6 +18,8 @@ public class ConfigPluginController implements IPlugin
 	private GUIConfigController guiconfigcontroller;
 
 	private JMenuItem mi_roots_config;
+	
+	private TPForfedre tp;
 
 	public ConfigPluginController()
 	{
@@ -49,7 +53,7 @@ public class ConfigPluginController implements IPlugin
 		
 		this.guiconfigcontroller = new GUIConfigController(this.pluginmanager, this);
 	
-		//this.guiconfigcontroller.doTranslation(tp);
+		this.guiconfigcontroller.doTranslation(tp);
 	}
 
 	@Override
@@ -63,24 +67,23 @@ public class ConfigPluginController implements IPlugin
 	@Override
 	public void doTranslation(enum_language p_language)
 	{
-		/*
 		try
 		{
-			this.tp = new TPAbout(p_language, TPAbout.LANGUAGE_FILE_LOCATION);
+			this.tp = new TPForfedre(p_language, TPForfedre.LANGUAGE_FILE_LOCATION);
 
 			if (this.guiconfigcontroller != null)
 			{
 				this.guiconfigcontroller.doTranslation(tp);
 			}
 
-			this.mi_config.setText(tp.getLanguagePropertie(this.mi_config.getName()));
+			this.mi_roots_config.setText(tp.getLanguagePropertie(this.mi_roots_config.getName()));
 
 		} catch (IOException e)
 		{
 			this.pluginmanager.logStackTrace(e.getStackTrace());
 			this.pluginmanager.logError(e.getMessage());
 		}
-		*/
+		
 	}
 
 	@Override

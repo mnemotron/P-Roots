@@ -1,10 +1,12 @@
-package roots.config.gui;
+package roots.plugin.config.gui;
+
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-import roots.config.GUIConfigModel;
 import roots.plugin.IPlugin;
 import roots.plugin.IPluginManager;
+import roots.translation.TPForfedre;
 
 public class GUIConfigController
 {
@@ -17,6 +19,23 @@ public class GUIConfigController
 		this.guiconfigmodel.setPluginmanager(p_pluginmanager);
 		this.guiconfig = new GUIConfig(this);
 		startProgram(p_iplugin);
+	}
+	
+	public void doTranslation(TPForfedre tp)
+	{
+		try
+		{
+			this.guiconfig.do_translation(tp);
+		} catch (IOException e)
+		{
+			this.guiconfigmodel.getPluginmanager().logStackTrace(e.getStackTrace());
+			this.guiconfigmodel.getPluginmanager().logError(e.getMessage());
+		}
+	}
+	
+	protected void changeTabTitle(String title)
+	{
+		this.guiconfigmodel.changeTabTitle(this.guiconfig, title);
 	}
 
 	protected void startProgram(IPlugin p_iplugin)
