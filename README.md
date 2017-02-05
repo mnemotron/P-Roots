@@ -1,3 +1,7 @@
+***
+**!!! I am looking for developers, who are interested in the development of an ancestral research program !!!**
+***
+
 # Roots
 Roots is a program for ancestry research.
 
@@ -25,4 +29,4 @@ Roots is a program for ancestry research.
 ...
 
 ## License
-![GNU General Public License 3](https://www.gnu.org/graphics/gplv3-127x51.png)
+<div><a href="https://www.gnu.org/licenses/gpl-3.0.de.html"><img src="https://www.gnu.org/graphics/gplv3-127x51.png"></a></div>
