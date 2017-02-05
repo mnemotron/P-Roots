@@ -1,4 +1,4 @@
-package roots.gui;
+package roots.core.gui;
 
 import java.awt.Dialog;
 import java.io.IOException;
@@ -45,21 +45,23 @@ public class GUIMainController implements ITranslation
 		// load plugins
 		try
 		{
-			this.guimainmodel.loadPlugins();
+			//internal plugins
+			this.guimainmodel.loadInternalPlugins();
+			
+			// external plugins
+			this.guimainmodel.loadExternalPlugins();
 		} catch (IOException e)
 		{
 			this.logStackTrace(e.getStackTrace());
 		}
 
 		// open login program
-		guireplogincontroller = new GUIRepositoryLoginController(this);
-		startProgram(guireplogincontroller.getProgram(), new ImageIcon(), true);
+		this.openGUIRepositoryLogin();
 
 		guimainmodel.getTranslationlistener()
 				.setLanguage(guimainmodel.getConfigcontroller().getConfigentity().getLanguage());
 
 		guimainmodel.getTranslationlistener().addTranslationListener(this);
-		guimainmodel.getTranslationlistener().addTranslationListener(guireplogincontroller);
 		guimainmodel.getTranslationlistener().addTranslationListener(guimainmodel.getPlugincontroller());
 
 		guimainmodel.getTranslationlistener().runTranslationListener();
@@ -168,7 +170,7 @@ public class GUIMainController implements ITranslation
 
 	public void closeProgram(JPanel p_panel, IPlugin p_iplugin)
 	{
-		guimain.removeTabProgram(p_panel);
+		this.closeProgram(p_panel);
 
 		this.guimainmodel.fireProgramClosed(p_iplugin);
 	}
@@ -276,6 +278,9 @@ public class GUIMainController implements ITranslation
 		case REPOSITORY_EXPORT:
 			this.guimain.addJMenuItemExport(p_menuitem);
 			break;
+		case ROOTS:
+			this.guimain.addJMenuItemRoots(p_menuitem);
+			break;
 		}
 	}
 
@@ -309,4 +314,10 @@ public class GUIMainController implements ITranslation
 		this.guimain.getMain_frame().repaint();
 	}
 
+	public void openGUIRepositoryLogin()
+	{
+		this.guireplogincontroller = new GUIRepositoryLoginController(this);
+		guimainmodel.getTranslationlistener().addTranslationListener(guireplogincontroller);
+		startProgram(this.guireplogincontroller.getProgram(), new ImageIcon(), true);
+	}
 }

@@ -1,4 +1,4 @@
-package roots.gui;
+package roots.core.gui;
 
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
@@ -83,7 +83,7 @@ public class GUIRepositoryLogin extends JPanel
 		this.guireplogincontroller = p_guireplogincontroller;
 
 		// -- set Font
-		this.font = GUILayout.font_tahoma_bold_12;
+		//this.font = GUILayout.font_tahoma_bold_12;
 
 		setBorder(null);
 		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));

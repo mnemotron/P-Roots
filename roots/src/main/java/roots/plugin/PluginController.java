@@ -12,7 +12,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
 import roots.core.SystemProperties;
-import roots.gui.GUIMainController;
+import roots.core.gui.GUIMainController;
 import roots.translation.ITranslation;
 
 public class PluginController implements ITranslation
@@ -37,10 +37,10 @@ public class PluginController implements ITranslation
 		plugins = new ArrayList<IPlugin>();
 	}
 
-	public void loadPlugins(GUIMainController p_guimaincontroller) throws IOException
+	public void loadExternalPlugins(GUIMainController p_guimaincontroller) throws IOException
 	{
 		List<IPlugin> plugins_tmp = null;
-		
+
 		plugins_tmp = PluginController.loadPlugins(new File(SystemProperties.c_plugindir));
 
 		PluginManager pluginmanager = new PluginManager(p_guimaincontroller);
@@ -58,8 +58,8 @@ public class PluginController implements ITranslation
 		PluginManager pluginmanager = new PluginManager(p_guimaincontroller);
 
 		p_iplugin.setPluginManager(pluginmanager);
-		
-		this.plugins.add(p_iplugin);
+
+		this.addPlugin(p_iplugin);
 	}
 
 	private static List<IPlugin> loadPlugins(File p_plugdir) throws IOException
@@ -113,7 +113,8 @@ public class PluginController implements ITranslation
 			{
 				try
 				{
-					Class<?> cls = p_cl.loadClass(ent.getName().substring(0, ent.getName().length() - 6).replace('/', '.'));
+					Class<?> cls = p_cl
+							.loadClass(ent.getName().substring(0, ent.getName().length() - 6).replace('/', '.'));
 					if (PluginController.isPluggableClass(cls))
 					{
 						classes.add((Class<IPlugin>) cls);
@@ -166,12 +167,17 @@ public class PluginController implements ITranslation
 
 		return plugs;
 	}
-	
+
 	public void fireSingleClosed(IPlugin p_iplugin)
 	{
 		int i = this.plugins.indexOf(p_iplugin);
-		
+
 		this.plugins.get(i).closeProgram();
+	}
+
+	protected void addPlugin(IPlugin p_iplugin)
+	{
+		this.plugins.add(p_iplugin);
 	}
 
 	@Override

@@ -2,7 +2,7 @@ package roots;
 
 import java.awt.EventQueue;
 
-import roots.gui.GUIMainController;
+import roots.core.gui.GUIMainController;
 
 public class StartRoots
 {

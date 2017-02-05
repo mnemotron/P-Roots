@@ -1,4 +1,4 @@
-package roots.gui;
+package roots.core.gui;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
@@ -27,7 +27,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 public class GUIMain
-{	
+{
 	private GUIMainController guimaincontroller;
 
 	private JFrame main_frame;
@@ -35,7 +35,6 @@ public class GUIMain
 	private JMenuBar menubar_main;
 	private JTabbedPane main_tab;
 	private JMenu menu_forfedre;
-	private JMenuItem mi_forfedre_config;
 	private JSeparator sep_forfedre1;
 	private JMenuItem mi_forfedre_exit;
 	private JMenu menu_programs;
@@ -67,12 +66,15 @@ public class GUIMain
 	 */
 	private void initialize()
 	{
-//		Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-		
+		// Rectangle maxBounds =
+		// GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+
 		main_frame = new JFrame();
-		main_frame.addWindowListener(new WindowAdapter() {
+		main_frame.addWindowListener(new WindowAdapter()
+		{
 			@Override
-			public void windowClosing(WindowEvent arg0) {
+			public void windowClosing(WindowEvent arg0)
+			{
 				guimaincontroller.stopGUI();
 			}
 		});
@@ -126,22 +128,10 @@ public class GUIMain
 		{
 			menu_forfedre = new JMenu("");
 			menu_forfedre.setName("MENU_FORFEDRE");
-			menu_forfedre.add(getMi_forfedre_config());
 			menu_forfedre.add(getSep_forfedre1());
 			menu_forfedre.add(getMi_forfedre_exit());
 		}
 		return menu_forfedre;
-	}
-
-	private JMenuItem getMi_forfedre_config()
-	{
-		if (mi_forfedre_config == null)
-		{
-			mi_forfedre_config = new JMenuItem("Configuration");
-			mi_forfedre_config.setIcon(new ImageIcon(GUIMain.class.getResource("/roots/icons/config.png")));
-			mi_forfedre_config.setName("MI_FORFEDRE_CONFIG");
-		}
-		return mi_forfedre_config;
 	}
 
 	private JSeparator getSep_forfedre1()
@@ -182,7 +172,7 @@ public class GUIMain
 		}
 		return menu_programs;
 	}
-	
+
 	private JMenu getMenu_programs_edit()
 	{
 		if (menu_programs_edit == null)
@@ -353,7 +343,6 @@ public class GUIMain
 
 		// -- Menu Forfedre
 		this.menu_forfedre.setText(tp.getLanguagePropertie(this.menu_forfedre.getName()));
-		this.mi_forfedre_config.setText(tp.getLanguagePropertie(this.mi_forfedre_config.getName()));
 		this.mi_forfedre_exit.setText(tp.getLanguagePropertie(this.mi_forfedre_exit.getName()));
 
 		// -- Menu Info
@@ -385,7 +374,12 @@ public class GUIMain
 		}
 		return menu_panel;
 	}
-	
+
+	protected void addJMenuItemRoots(JMenuItem p_menuitem)
+	{
+		this.menu_forfedre.add(p_menuitem);
+	}
+
 	protected void addJMenuItemInfo(JMenuItem p_menuitem)
 	{
 		this.menu_info.add(p_menuitem);
@@ -407,20 +401,20 @@ public class GUIMain
 		{
 			this.menu_programs.add(this.getMenu_programs_edit());
 		}
-		
-		this.menu_programs_edit.add(p_menuitem);		
+
+		this.menu_programs_edit.add(p_menuitem);
 	}
-	
+
 	protected void addJMenuProgramsEdit(JMenu p_menu)
 	{
 		if (this.menu_programs_edit == null)
 		{
 			this.menu_programs.add(this.getMenu_programs_edit());
 		}
-		
-		this.menu_programs_edit.add(p_menu);		
+
+		this.menu_programs_edit.add(p_menu);
 	}
-	
+
 	protected void addJMenuExport(JMenu p_jmenu)
 	{
 		this.menu_repexport.add(p_jmenu);
@@ -455,16 +449,18 @@ public class GUIMain
 	{
 		main_tab.remove(p_panel);
 	}
-	
-	protected void addJTabProgram(JPanel p_panel, ImageIcon p_ico, boolean p_selected, boolean p_closeable, IPlugin p_iplugin)
+
+	protected void addJTabProgram(JPanel p_panel, ImageIcon p_ico, boolean p_selected, boolean p_closeable,
+			IPlugin p_iplugin)
 	{
 		this.main_tab.addTab("", p_ico, p_panel);
-		
+
 		if (p_closeable && p_iplugin != null)
 		{
 			int index = this.main_tab.indexOfComponent(p_panel);
 
-			this.main_tab.setTabComponentAt(index, new TabButtonComponent(guimaincontroller, main_tab, p_ico, p_panel, p_iplugin));
+			this.main_tab.setTabComponentAt(index,
+					new TabButtonComponent(guimaincontroller, main_tab, p_ico, p_panel, p_iplugin));
 		}
 
 		if (p_selected)

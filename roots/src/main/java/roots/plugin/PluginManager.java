@@ -6,9 +6,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.hibernate.Query;
-import roots.entities.Repinfo;
 
-import roots.gui.GUIMainController;
+import roots.core.gui.GUIMainController;
+import roots.entities.Repinfo;
 import roots.translation.ITranslation.enum_language;
 
 public class PluginManager implements IPluginManager

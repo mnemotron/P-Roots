@@ -1,4 +1,4 @@
-package roots.gui;
+package roots.core.gui;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,8 +11,9 @@ import roots.entities.Repinfo;
 
 import roots.config.ConfigController;
 import roots.config.ConfigEntity;
+import roots.config.gui.ConfigPluginController;
+import roots.core.gui.GUIMainController;
 import roots.core.hibernate.HibernateController;
-import roots.gui.GUIMainController;
 import roots.logger.LogController;
 import roots.plugin.IPlugin;
 import roots.plugin.PluginController;
@@ -63,10 +64,17 @@ public class GUIMainModel
 		// logging or not
 		LogController.setLog(configcontroller.getConfigentity().isLog());
 	}
-
-	public void loadPlugins() throws IOException
+	
+	public void loadInternalPlugins() throws IOException
 	{
-		this.plugincontroller.loadPlugins(guimaincontroller);
+		// configuration
+		ConfigPluginController configplugincontroller = new ConfigPluginController();
+		this.plugincontroller.loadPlugin(this.guimaincontroller, configplugincontroller);
+	}
+
+	public void loadExternalPlugins() throws IOException
+	{
+		this.plugincontroller.loadExternalPlugins(guimaincontroller);
 	}
 
 	public void fireProgramClosed(IPlugin p_iplugin)

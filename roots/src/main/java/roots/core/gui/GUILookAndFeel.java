@@ -1,4 +1,4 @@
-package roots.gui;
+package roots.core.gui;
 
 import javax.swing.*;
 

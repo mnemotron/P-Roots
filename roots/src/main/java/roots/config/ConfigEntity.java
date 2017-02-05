@@ -2,8 +2,8 @@ package roots.config;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import roots.core.gui.GUILookAndFeel;
 import roots.core.hibernate.HibernateController;
-import roots.gui.GUILookAndFeel;
 import roots.translation.ITranslation;
 
 @XmlRootElement

@@ -18,7 +18,8 @@ public interface IPluginManager
 		PROGRAMS,
 		PROGRAMS_EDIT,
 		REPOSITORY_IMPORT,
-		REPOSITORY_EXPORT
+		REPOSITORY_EXPORT,
+		ROOTS
 	}
 	
 	public void startProgram(JPanel p_panel, ImageIcon p_ico, boolean p_selected, boolean p_closeable, IPlugin p_iplugin);

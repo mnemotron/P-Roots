@@ -1,18 +1,18 @@
-package roots.gui;
+package roots.core.gui;
 
 import java.util.ArrayList;
 
 import javax.swing.MutableComboBoxModel;
 import javax.swing.event.ListDataListener;
 
-import roots.entities.Repinfo;
+import roots.core.hibernate.HibernateController;
 
-public class ComboBoxRepKeyModel implements MutableComboBoxModel
+public class ComboBoxKeyModel implements MutableComboBoxModel
 {
-	public static ArrayList<ComboBoxRepKey> entries = new ArrayList<ComboBoxRepKey>();
+	public static ArrayList<ComboBoxKey> entries = new ArrayList<ComboBoxKey>();
 	private static int sel_index = -1;
 
-	public static ComboBoxRepKey getSelectedComboBoxKeyItem()
+	public static ComboBoxKey getSelectedComboBoxKeyItem()
 	{
 		if (sel_index < 0)
 		{
@@ -22,13 +22,13 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 		return entries.get(sel_index);
 	}
 
-	public static void setSelectedRepinfoItem(Repinfo p_repinfo)
+	public static void setSelectedDatabaseItem(HibernateController.databases p_database)
 	{
 		int size = entries.size();
 
 		for (int i = 0; i < size; i++)
 		{
-			if (entries.get(i).getRepinfo().getId() == p_repinfo.getId())
+			if (((ComboBoxKey) entries.get(i)).getDatabase() == p_database)
 			{
 				sel_index = i;
 				break;
@@ -39,19 +39,11 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 	@Override
 	public Object getSelectedItem()
 	{
-		int i  = entries.size();
-		
-		if (sel_index < 0 || i == 0)
+		if (sel_index < 0)
 		{
 			return null;
 		}
-
-		if (entries.get(sel_index).getNewrepname() != null)
-		{
-			return entries.get(sel_index).getNewrepname();
-		}
-
-		return entries.get(sel_index).getRepDesc();
+		return entries.get(sel_index).getDescription();
 	}
 
 	@Override
@@ -61,24 +53,11 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 
 		for (int i = 0; i < size; i++)
 		{
-			
-			String tmp = ((ComboBoxRepKey) entries.get(i)).getRepDesc();
-			if (tmp.compareTo((String)anItem) == 0)
+			if (((ComboBoxKey) entries.get(i)).getDescription().compareTo((String)anItem) == 0)
 			{
 				sel_index = i;
-				return;
+				break;
 			}
-		}
-		
-		if (anItem instanceof String)
-		{
-			entries.clear();
-
-			ComboBoxRepKey ck = new ComboBoxRepKey((String) anItem);
-			entries.add(ck);
-			sel_index = entries.indexOf(ck);
-
-			return;
 		}
 	}
 
@@ -89,14 +68,7 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 	@Override
 	public Object getElementAt(int arg0)
 	{
-		if (entries.get(arg0).getNewrepname() != null)
-		{
-			return (entries.get(arg0).getNewrepname());
-		} else
-		{
-			return (entries.get(arg0).getRepDesc());
-		}
-
+		return (entries.get(arg0).getDescription());
 	}
 
 	@Override
@@ -114,7 +86,7 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 	{
 		if (!entries.contains(arg0))
 		{
-			entries.add((ComboBoxRepKey) arg0);
+			entries.add((ComboBoxKey) arg0);
 		}
 
 	}
@@ -122,7 +94,7 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 	@Override
 	public void insertElementAt(Object arg0, int arg1)
 	{
-		entries.add(arg1, (ComboBoxRepKey) arg0);
+		entries.add(arg1, (ComboBoxKey) arg0);
 	}
 
 	@Override
@@ -132,8 +104,8 @@ public class ComboBoxRepKeyModel implements MutableComboBoxModel
 
 		for (int i = 0; i < size; i++)
 		{
-			ComboBoxRepKey ck = (ComboBoxRepKey) entries.get(i);
-			String tmp = ck.getRepDesc();
+			ComboBoxKey ck = (ComboBoxKey) entries.get(i);
+			String tmp = ck.getDescription();
 			if (tmp.compareTo((String)arg0) == 0)
 			{
 				entries.remove(ck);

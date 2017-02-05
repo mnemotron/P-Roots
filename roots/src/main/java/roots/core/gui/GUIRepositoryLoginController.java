@@ -1,4 +1,4 @@
-package roots.gui;
+package roots.core.gui;
 
 import java.io.IOException;
 import java.util.Date;
@@ -51,7 +51,8 @@ public class GUIRepositoryLoginController implements ITranslation
 		guireplogin.getBtn_rep_choose().setEnabled(true);
 
 		guireplogin.getCbx_repname().removeAllItems();
-		guireplogin.getLbl_repcreationdate_dat().setText(DateTimeFormat.getCurrentDate(DateTimeFormat.c_dd_MM_yyyy_point));
+		guireplogin.getLbl_repcreationdate_dat()
+				.setText(DateTimeFormat.getCurrentDate(DateTimeFormat.c_dd_MM_yyyy_point));
 		guireplogin.getLbl_repversion_dat().setText(HibernateController.c_repository_version);
 		guireplogin.getTxt_repcreator().setEditable(true);
 		guireplogin.getTxt_repcreator().setText(null);
@@ -234,7 +235,8 @@ public class GUIRepositoryLoginController implements ITranslation
 		// TODO check parameter
 
 		// login database
-		this.guimaincontroller.loginDatabase(comboboxkey.getDatabase(), dblocation, dbname, username, password, keeppassword);
+		this.guimaincontroller.loginDatabase(comboboxkey.getDatabase(), dblocation, dbname, username, password,
+				keeppassword);
 
 		guireplogin.getBtn_db_connect().setEnabled(false);
 	}
@@ -334,7 +336,7 @@ public class GUIRepositoryLoginController implements ITranslation
 
 	@Override
 	public void do_translation(ITranslation.enum_language p_language)
-	{	
+	{
 		try
 		{
 			this.guireplogin.do_translation(p_language);
@@ -344,7 +346,7 @@ public class GUIRepositoryLoginController implements ITranslation
 			this.guimaincontroller.logError(e.getMessage());
 		}
 	}
-	
+
 	protected void changeTabTitle(String p_title)
 	{
 		this.guimaincontroller.changeTabTitle(this.guireplogin, p_title);
