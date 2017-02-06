@@ -218,6 +218,13 @@ public class GUIMain
 		if (mi_repository_change == null)
 		{
 			mi_repository_change = new JMenuItem("");
+			mi_repository_change.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent arg0)
+				{
+					guimaincontroller.openGUIRepositoryLogin(true);
+				}
+			});
 			mi_repository_change.setIcon(new ImageIcon(GUIMain.class.getResource("/roots/icons/repchange.png")));
 			mi_repository_change.setName("MI_REPOSITORY_CHANGE");
 		}
@@ -464,7 +471,7 @@ public class GUIMain
 	{
 		this.main_tab.addTab("", p_ico, p_panel);
 
-		if (p_closeable && p_iplugin != null)
+		if (p_closeable)
 		{
 			int index = this.main_tab.indexOfComponent(p_panel);
 

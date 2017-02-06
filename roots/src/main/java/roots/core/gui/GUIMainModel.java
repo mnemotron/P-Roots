@@ -168,8 +168,11 @@ public class GUIMainModel
 
 				} catch (Exception e)
 				{
+					hibernatecontroller = null;
+					
 					// database connection failure
 					dbconstatus = GUIMainModel.dbconnectionstatus.FAILURE;
+
 
 					// TODO failure log
 					LogController.printStackTrace(e.getStackTrace());

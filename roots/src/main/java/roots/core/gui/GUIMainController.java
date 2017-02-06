@@ -21,16 +21,14 @@ import roots.plugin.IPlugin;
 import roots.plugin.IPluginManager;
 import roots.translation.ITranslation;
 
-public class GUIMainController implements ITranslation
-{
+public class GUIMainController implements ITranslation {
 
 	private GUIMain guimain;
 
 	private GUIMainModel guimainmodel;
 	private GUIRepositoryLoginController guireplogincontroller;
 
-	public GUIMainController() throws Exception
-	{
+	public GUIMainController() throws Exception {
 		// build model
 		this.guimainmodel = new GUIMainModel(GUIMainModel.dbconnectionstatus.INIT, this);
 
@@ -43,20 +41,18 @@ public class GUIMainController implements ITranslation
 		this.guimain.select_Language(guimainmodel.getConfigcontroller().getConfigentity().getLanguage());
 
 		// load plugins
-		try
-		{
-			//internal plugins
+		try {
+			// internal plugins
 			this.guimainmodel.loadInternalPlugins();
-			
+
 			// external plugins
 			this.guimainmodel.loadExternalPlugins();
-		} catch (IOException e)
-		{
+		} catch (Exception e) {
 			this.logStackTrace(e.getStackTrace());
 		}
 
 		// open login program
-		this.openGUIRepositoryLogin();
+		this.openGUIRepositoryLogin(false);
 
 		guimainmodel.getTranslationlistener()
 				.setLanguage(guimainmodel.getConfigcontroller().getConfigentity().getLanguage());
@@ -71,55 +67,47 @@ public class GUIMainController implements ITranslation
 		this.startGUI();
 	}
 
-	private void setStatusInit()
-	{
+	private void setStatusInit() {
 		guimain.getMenu_programs().setEnabled(false);
 		guimain.getMenu_repository().setEnabled(false);
 	}
 
-	private void setStatusRepositoryChoosed()
-	{
+	private void setStatusRepositoryChoosed() {
 		guimain.getMenu_programs().setEnabled(true);
 		guimain.getMenu_repository().setEnabled(true);
 	}
 
-	public void setLanguage(ITranslation.enum_language p_language)
-	{
+	public void setLanguage(ITranslation.enum_language p_language) {
 		guimainmodel.setLanguage(p_language);
 	}
 
-	public void startGUI()
-	{
+	public void startGUI() {
 		this.guimain.getMain_frame().setVisible(true);
 		// this.guimain.getMain_frame().pack();
 	}
 
-	public void stopGUI()
-	{
+	public void stopGUI() {
 		this.guimainmodel.disconnectDatabase();
 
 		this.guimain.getMain_frame().setVisible(false);
 		System.exit(0);
 	}
 
-	public void dbConnectionFailure()
-	{
+	public void dbConnectionFailure() {
 		this.guimain.getLbl_repository_status()
 				.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbred.png")));
 
 		guireplogincontroller.dbConnectionFailure();
 	}
 
-	public void dbConnected(List<?> p_replist)
-	{
+	public void dbConnected(List<?> p_replist) {
 		guireplogincontroller.dbConnected(p_replist);
 
 		this.guimain.getLbl_repository_status()
 				.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbgreen.png")));
 	}
 
-	public void disconnectDatabase()
-	{
+	public void disconnectDatabase() {
 		guimainmodel.disconnectDatabase();
 
 		guimain.getLbl_repository_status()
@@ -127,16 +115,14 @@ public class GUIMainController implements ITranslation
 	}
 
 	public void loginDatabase(HibernateController.databases p_database, String p_dblocation, String p_dbname,
-			String p_username, String p_password, boolean p_keeppassword)
-	{
+			String p_username, String p_password, boolean p_keeppassword) {
 		guimain.getLbl_repository_status()
 				.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbyellow.png")));
 
 		guimainmodel.loginDatabase(p_database, p_dblocation, p_dbname, p_username, p_password, p_keeppassword);
 	}
 
-	public void startProgramInExternalWindow(JPanel p_panel)
-	{
+	public void startProgramInExternalWindow(JPanel p_panel) {
 		JDialog jdialog = new JDialog(this.guimain.getMain_frame(), Dialog.ModalityType.APPLICATION_MODAL);
 		jdialog.setContentPane(p_panel);
 		jdialog.setResizable(true);
@@ -152,54 +138,42 @@ public class GUIMainController implements ITranslation
 		// jframe.setVisible(true);
 	}
 
-	public void startProgram(JPanel p_panel, ImageIcon p_ico, boolean p_selected)
-	{
-		guimain.addJTabProgram(p_panel, p_ico, p_selected, false, null);
-	}
-
 	public void startProgram(JPanel p_panel, ImageIcon p_ico, boolean p_selected, boolean p_closeable,
-			IPlugin p_iplugin)
-	{
+			IPlugin p_iplugin) {
 		guimain.addJTabProgram(p_panel, p_ico, p_selected, p_closeable, p_iplugin);
 	}
 
-	public void closeProgram(JPanel p_panel)
-	{
+	public void closeProgram(JPanel p_panel) {
 		guimain.removeTabProgram(p_panel);
 	}
 
-	public void closeProgram(JPanel p_panel, IPlugin p_iplugin)
-	{
+	public void closeProgram(JPanel p_panel, IPlugin p_iplugin) {
 		this.closeProgram(p_panel);
 
-		this.guimainmodel.fireProgramClosed(p_iplugin);
+		if (p_iplugin != null) {
+			this.guimainmodel.fireProgramClosed(p_iplugin);
+		}
 	}
 
 	@Override
-	public void do_translation(enum_language p_language)
-	{
-		try
-		{
+	public void do_translation(enum_language p_language) {
+		try {
 			this.guimain.do_translation(p_language);
-		} catch (IOException e)
-		{
+		} catch (IOException e) {
 			this.logStackTrace(e.getStackTrace());
 			this.logError(e.getMessage());
 		}
 	}
 
-	public ConfigEntity getConfigEntity()
-	{
+	public ConfigEntity getConfigEntity() {
 		return guimainmodel.getConfigEntity();
 	}
 
-	public GUIMainModel.dbconnectionstatus getdbConnectionStatus()
-	{
+	public GUIMainModel.dbconnectionstatus getdbConnectionStatus() {
 		return guimainmodel.getDbconstatus();
 	}
 
-	public void createRepository(String p_repname, String p_description, String p_creator)
-	{
+	public void createRepository(String p_repname, String p_description, String p_creator) {
 		guimainmodel.createRepository(p_repname, p_description, p_creator);
 
 		setStatusRepositoryChoosed();
@@ -209,8 +183,7 @@ public class GUIMainController implements ITranslation
 		guireplogincontroller = null;
 	}
 
-	public void chooseRepository(Repinfo p_repinfo)
-	{
+	public void chooseRepository(Repinfo p_repinfo) {
 		guimainmodel.chooseRepository(p_repinfo);
 
 		setStatusRepositoryChoosed();
@@ -220,17 +193,13 @@ public class GUIMainController implements ITranslation
 		guireplogincontroller = null;
 	}
 
-	public void changeTabTitle(JPanel p_panel, String p_title)
-	{
+	public void changeTabTitle(JPanel p_panel, String p_title) {
 		guimain.changeTabTitle(p_panel, p_title);
 	}
 
-	protected void showLogScreen()
-	{
-		Runnable run = new Runnable()
-		{
-			public void run()
-			{
+	protected void showLogScreen() {
+		Runnable run = new Runnable() {
+			public void run() {
 				LogBrokerMonitor lbm = LogController.getLogbrokermonitor();
 				lbm.show();
 			}
@@ -240,10 +209,8 @@ public class GUIMainController implements ITranslation
 		t.run();
 	}
 
-	public void setMenu(JMenu p_menu, IPluginManager.menuposition p_menupos)
-	{
-		switch (p_menupos)
-		{
+	public void setMenu(JMenu p_menu, IPluginManager.menuposition p_menupos) {
+		switch (p_menupos) {
 		case PROGRAMS:
 			this.guimain.addJMenuPrograms(p_menu);
 			break;
@@ -259,10 +226,8 @@ public class GUIMainController implements ITranslation
 		}
 	}
 
-	public void setMenuItem(JMenuItem p_menuitem, IPluginManager.menuposition p_menupos)
-	{
-		switch (p_menupos)
-		{
+	public void setMenuItem(JMenuItem p_menuitem, IPluginManager.menuposition p_menupos) {
+		switch (p_menupos) {
 		case INFO:
 			this.guimain.addJMenuItemInfo(p_menuitem);
 			break;
@@ -284,40 +249,33 @@ public class GUIMainController implements ITranslation
 		}
 	}
 
-	public void logError(String p_error)
-	{
+	public void logError(String p_error) {
 		LogController.error(p_error);
 	}
 
-	public void logInfo(String p_info)
-	{
+	public void logInfo(String p_info) {
 		LogController.info(p_info);
 	}
 
-	public void logStackTrace(StackTraceElement[] p_stacktrace)
-	{
+	public void logStackTrace(StackTraceElement[] p_stacktrace) {
 		LogController.printStackTrace(p_stacktrace);
 	}
 
-	public GUIMainModel getGuimainmodel()
-	{
+	public GUIMainModel getGuimainmodel() {
 		return guimainmodel;
 	}
 
-	public Query createQuery(String p_query)
-	{
+	public Query createQuery(String p_query) {
 		return this.guimainmodel.createQuery(p_query);
 	}
 
-	public void refreshMainFrame()
-	{
+	public void refreshMainFrame() {
 		this.guimain.getMain_frame().repaint();
 	}
 
-	public void openGUIRepositoryLogin()
-	{
+	public void openGUIRepositoryLogin(boolean p_closeable) {
 		this.guireplogincontroller = new GUIRepositoryLoginController(this);
 		guimainmodel.getTranslationlistener().addTranslationListener(guireplogincontroller);
-		startProgram(this.guireplogincontroller.getProgram(), new ImageIcon(), true);
+		startProgram(this.guireplogincontroller.getProgram(), new ImageIcon(), true, p_closeable, null);
 	}
 }
