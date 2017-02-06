@@ -1,6 +1,9 @@
 ***
 **!!! I am looking for developers, who are interested in the development of an ancestral research program !!!**
 ***
+<p align="center">
+  <img src="https://github.com/mnemotron/Roots/raw/master/roots.doc/logo/roots_logo.png" height="400">
+</p>
 
 # Roots
 Roots is a program for ancestry research.
