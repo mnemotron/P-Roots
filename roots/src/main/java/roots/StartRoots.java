@@ -1,7 +1,6 @@
 package roots;
 
 import java.awt.EventQueue;
-
 import roots.core.gui.GUIMainController;
 
 public class StartRoots

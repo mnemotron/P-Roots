@@ -1,61 +1,40 @@
 package roots.core.gui;
 
-import javax.swing.*;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+
+import roots.logger.LogController;
 
 public class GUILookAndFeel
 {
-
-	public enum Lookandfeel
+	private final static String c_default_lookandfeel = "com.pagosoft.plaf.PgsLookAndFeel";
+	
+	public static LookAndFeelInfo[] getInstalledLookAndFeels()
 	{
-		NATIVE, JAVA, MOTIF
+		LookAndFeelInfo laf[] = UIManager.getInstalledLookAndFeels();
+		
+		return laf;
+	}
+	
+	public static void setDefaultLookAndFeel()
+	{
+		GUILookAndFeel.setLookAndFeel(c_default_lookandfeel);
+	}
+	
+	public static String getDefaultLookAndFeel()
+	{
+		return c_default_lookandfeel;
 	}
 
-	public static void setLookAndFeel(Lookandfeel p_lookandfeel)
-	{
-		switch (p_lookandfeel)
-		{
-		case NATIVE:
-			GUILookAndFeel.setNativeLookAndFeel();
-			break;
-		case JAVA:
-			GUILookAndFeel.setJavaLookAndFeel();
-			break;
-		case MOTIF:
-			GUILookAndFeel.setMotifLookAndFeel();
-			break;
-		}
-	}
-
-	private static void setNativeLookAndFeel()
+	public static void setLookAndFeel(String p_classname)
 	{
 		try
 		{
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(p_classname);
 		} catch (Exception e)
 		{
-			System.out.println("Error setting native LAF: " + e);
+			LogController.error("Error setting look and feel: " + e);
 		}
 	}
-
-	private static void setJavaLookAndFeel()
-	{
-		try
-		{
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception e)
-		{
-			System.out.println("Error setting Java LAF: " + e);
-		}
-	}
-
-	private static void setMotifLookAndFeel()
-	{
-		try
-		{
-			UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-		} catch (Exception e)
-		{
-			System.out.println("Error setting Motif LAF: " + e);
-		}
-	}
+	
 }

@@ -222,7 +222,7 @@ public class GUIMain
 			{
 				public void actionPerformed(ActionEvent arg0)
 				{
-					guimaincontroller.openGUIRepositoryLogin(true);
+					guimaincontroller.openGUIRepositoryLogin(true, true);
 				}
 			});
 			mi_repository_change.setIcon(new ImageIcon(GUIMain.class.getResource("/roots/icons/repchange.png")));

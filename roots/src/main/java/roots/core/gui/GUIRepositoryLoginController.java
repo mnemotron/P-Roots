@@ -298,7 +298,8 @@ public class GUIRepositoryLoginController implements ITranslation
 		ComboBoxRepKey ck = ComboBoxRepKeyModel.getSelectedComboBoxKeyItem();
 
 		guimaincontroller.chooseRepository(ck.getRepinfo());
-
+		
+		guimaincontroller.closeGUIRepositoryLogin();
 	}
 
 	protected void createRepository()
@@ -309,6 +310,8 @@ public class GUIRepositoryLoginController implements ITranslation
 		String repcreator = guireplogin.getTxt_repcreator().getText();
 
 		guimaincontroller.createRepository(newrepname, repdesc, repcreator);
+		
+		guimaincontroller.closeGUIRepositoryLogin();
 	}
 
 	protected void setNewRepository()

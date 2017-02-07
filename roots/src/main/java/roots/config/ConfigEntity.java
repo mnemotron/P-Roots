@@ -15,7 +15,7 @@ public class ConfigEntity
 
 	private String forfedre_version;
 	private ITranslation.enum_language language;
-	private GUILookAndFeel.Lookandfeel lookandfeel;
+	private String LAFClassName;
 
 	private HibernateController.databases database;
 	private String dbname;
@@ -30,7 +30,7 @@ public class ConfigEntity
 	{
 		this.forfedre_version = ConfigEntity.c_forfedre_version;
 		this.language = ITranslation.enum_language.en;
-		this.lookandfeel = GUILookAndFeel.Lookandfeel.NATIVE;
+		this.LAFClassName = GUILookAndFeel.getDefaultLookAndFeel();
 
 		this.database = HibernateController.databases.FORFEDREDB;
 		this.dbname = HibernateController.c_curl_forfedredb;
@@ -67,14 +67,14 @@ public class ConfigEntity
 		this.language = language;
 	}
 
-	public GUILookAndFeel.Lookandfeel getLookandfeel()
+	public String getLookandfeel()
 	{
-		return lookandfeel;
+		return this.LAFClassName;
 	}
 
-	public void setLookandfeel(GUILookAndFeel.Lookandfeel lookandfeel)
+	public void setLookandfeel(String LAFClassName)
 	{
-		this.lookandfeel = lookandfeel;
+		this.LAFClassName = LAFClassName;
 	}
 
 	public HibernateController.databases getDatabase()
