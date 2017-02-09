@@ -3,7 +3,7 @@ package roots.config;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import roots.core.gui.GUILookAndFeel;
-import roots.core.hibernate.HibernateController;
+import roots.core.hibernate.CHibernate;
 import roots.translation.ITranslation;
 
 @XmlRootElement
@@ -17,7 +17,7 @@ public class ConfigEntity
 	private ITranslation.enum_language language;
 	private String LAFClassName;
 
-	private HibernateController.databases database;
+	private CHibernate.databases database;
 	private String dbname;
 	private String dblocation;
 	private String dbusername;
@@ -30,10 +30,10 @@ public class ConfigEntity
 	{
 		this.forfedre_version = ConfigEntity.c_forfedre_version;
 		this.language = ITranslation.enum_language.en;
-		this.LAFClassName = GUILookAndFeel.getDefaultLookAndFeel();
+		this.LAFClassName = GUILookAndFeel.getDefaultLookAndFeelClassName();
 
-		this.database = HibernateController.databases.FORFEDREDB;
-		this.dbname = HibernateController.c_curl_forfedredb;
+		this.database = CHibernate.databases.FORFEDREDB;
+		this.dbname = CHibernate.c_curl_forfedredb;
 		this.dblocation = "";
 		this.dbusername = "";
 		this.dbpassword = "";
@@ -77,12 +77,12 @@ public class ConfigEntity
 		this.LAFClassName = LAFClassName;
 	}
 
-	public HibernateController.databases getDatabase()
+	public CHibernate.databases getDatabase()
 	{
 		return database;
 	}
 
-	public void setDatabase(HibernateController.databases database)
+	public void setDatabase(CHibernate.databases database)
 	{
 		this.database = database;
 	}

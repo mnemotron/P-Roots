@@ -12,36 +12,36 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
 import roots.core.SystemProperties;
-import roots.core.gui.GUIMainController;
+import roots.core.gui.GUICMain;
 import roots.translation.ITranslation;
 
-public class PluginController implements ITranslation
+public class CPlugin implements ITranslation
 {
-	private static PluginController plugincontroller;
+	private static CPlugin plugincontroller;
 
 	private ArrayList<IPlugin> plugins;
 	private static ClassLoader cl;
 
-	public static PluginController getPluginControllerInstance()
+	public static CPlugin getPluginControllerInstance()
 	{
-		if (PluginController.plugincontroller == null)
+		if (CPlugin.plugincontroller == null)
 		{
-			PluginController.plugincontroller = new PluginController();
+			CPlugin.plugincontroller = new CPlugin();
 		}
 
-		return PluginController.plugincontroller;
+		return CPlugin.plugincontroller;
 	}
 
-	private PluginController()
+	private CPlugin()
 	{
 		plugins = new ArrayList<IPlugin>();
 	}
 
-	public void loadExternalPlugins(GUIMainController p_guimaincontroller) throws IOException
+	public void loadExternalPlugins(GUICMain p_guimaincontroller) throws IOException
 	{
 		List<IPlugin> plugins_tmp = null;
 
-		plugins_tmp = PluginController.loadPlugins(new File(SystemProperties.c_plugindir));
+		plugins_tmp = CPlugin.loadPlugins(new File(SystemProperties.c_plugindir));
 
 		PluginManager pluginmanager = new PluginManager(p_guimaincontroller);
 
@@ -53,7 +53,7 @@ public class PluginController implements ITranslation
 		}
 	}
 
-	public void loadPlugin(GUIMainController p_guimaincontroller, IPlugin p_iplugin)
+	public void loadPlugin(GUICMain p_guimaincontroller, IPlugin p_iplugin)
 	{
 		PluginManager pluginmanager = new PluginManager(p_guimaincontroller);
 
@@ -67,11 +67,11 @@ public class PluginController implements ITranslation
 		// get all JAR-files in the plugin directory
 		File[] plugjars = p_plugdir.listFiles(new JARFileFilter());
 
-		cl = new URLClassLoader(PluginController.fileArrayToURLArray(plugjars));
+		cl = new URLClassLoader(CPlugin.fileArrayToURLArray(plugjars));
 
-		List<Class<IPlugin>> plugClasses = PluginController.extractClassesFromJARs(plugjars, cl);
+		List<Class<IPlugin>> plugClasses = CPlugin.extractClassesFromJARs(plugjars, cl);
 
-		return PluginController.createPluggableObjects(plugClasses);
+		return CPlugin.createPluggableObjects(plugClasses);
 	}
 
 	private static URL[] fileArrayToURLArray(File[] p_files) throws MalformedURLException
@@ -92,7 +92,7 @@ public class PluginController implements ITranslation
 
 		for (File jar : p_jars)
 		{
-			classes.addAll(PluginController.extractClassesFromJAR(jar, p_cl));
+			classes.addAll(CPlugin.extractClassesFromJAR(jar, p_cl));
 		}
 
 		return classes;
@@ -115,7 +115,7 @@ public class PluginController implements ITranslation
 				{
 					Class<?> cls = p_cl
 							.loadClass(ent.getName().substring(0, ent.getName().length() - 6).replace('/', '.'));
-					if (PluginController.isPluggableClass(cls))
+					if (CPlugin.isPluggableClass(cls))
 					{
 						classes.add((Class<IPlugin>) cls);
 					}

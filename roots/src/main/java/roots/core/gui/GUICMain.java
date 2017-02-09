@@ -15,24 +15,25 @@ import org.hibernate.Query;
 import roots.entities.Repinfo;
 
 import roots.config.ConfigEntity;
-import roots.core.hibernate.HibernateController;
-import roots.logger.LogController;
+import roots.core.SystemResourceIcons;
+import roots.core.hibernate.CHibernate;
+import roots.logger.CLog;
 import roots.plugin.IPlugin;
 import roots.plugin.IPluginManager;
 import roots.translation.ITranslation;
 
-public class GUIMainController implements ITranslation
+public class GUICMain implements ITranslation
 {
 
     private GUIMain guimain;
 
-    private GUIMainModel guimainmodel;
-    private GUIRepositoryLoginController guireplogincontroller;
+    private GUIMMain guimainmodel;
+    private GUICRepositoryLogin guireplogincontroller;
 
-    public GUIMainController() throws Exception
+    public GUICMain() throws Exception
     {
 	// build model
-	this.guimainmodel = new GUIMainModel(GUIMainModel.dbconnectionstatus.INIT, this);
+	this.guimainmodel = new GUIMMain(GUIMMain.dbconnectionstatus.INIT, this);
 
 	// init GUI
 	this.guimain = new GUIMain(this);
@@ -110,7 +111,7 @@ public class GUIMainController implements ITranslation
     public void dbConnectionFailure()
     {
 	this.guimain.getLbl_repository_status()
-		.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbred.png")));
+		.setIcon(new ImageIcon(GUICMain.class.getResource(SystemResourceIcons.ICON_REPO_DB_STATUS_RED)));
 
 	guireplogincontroller.dbConnectionFailure();
     }
@@ -120,7 +121,7 @@ public class GUIMainController implements ITranslation
 	guireplogincontroller.dbConnected(p_replist);
 
 	this.guimain.getLbl_repository_status()
-		.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbgreen.png")));
+		.setIcon(new ImageIcon(GUICMain.class.getResource(SystemResourceIcons.ICON_REPO_DB_STATUS_GREEN)));
     }
 
     public void disconnectDatabase()
@@ -128,14 +129,14 @@ public class GUIMainController implements ITranslation
 	guimainmodel.disconnectDatabase();
 
 	guimain.getLbl_repository_status()
-		.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbnative.png")));
+		.setIcon(new ImageIcon(GUICMain.class.getResource(SystemResourceIcons.ICON_REPO_DB_STATUS_NATIVE)));
     }
 
-    public void loginDatabase(HibernateController.databases p_database, String p_dblocation, String p_dbname,
-	    String p_username, String p_password, boolean p_keeppassword)
+    public void loginDatabase(CHibernate.databases p_database, String p_dblocation, String p_dbname, String p_username,
+	    String p_password, boolean p_keeppassword)
     {
 	guimain.getLbl_repository_status()
-		.setIcon(new ImageIcon(GUIMainController.class.getResource("/roots/icons/dbyellow.png")));
+		.setIcon(new ImageIcon(GUICMain.class.getResource(SystemResourceIcons.ICON_REPO_DB_STATUS_YELLOW)));
 
 	guimainmodel.loginDatabase(p_database, p_dblocation, p_dbname, p_username, p_password, p_keeppassword);
     }
@@ -196,7 +197,7 @@ public class GUIMainController implements ITranslation
 	return guimainmodel.getConfigEntity();
     }
 
-    public GUIMainModel.dbconnectionstatus getdbConnectionStatus()
+    public GUIMMain.dbconnectionstatus getdbConnectionStatus()
     {
 	return guimainmodel.getDbconstatus();
     }
@@ -226,7 +227,7 @@ public class GUIMainController implements ITranslation
 	{
 	    public void run()
 	    {
-		LogBrokerMonitor lbm = LogController.getLogbrokermonitor();
+		LogBrokerMonitor lbm = CLog.getLogbrokermonitor();
 		lbm.show();
 	    }
 	};
@@ -281,20 +282,20 @@ public class GUIMainController implements ITranslation
 
     public void logError(String p_error)
     {
-	LogController.error(p_error);
+	CLog.error(p_error);
     }
 
     public void logInfo(String p_info)
     {
-	LogController.info(p_info);
+	CLog.info(p_info);
     }
 
     public void logStackTrace(StackTraceElement[] p_stacktrace)
     {
-	LogController.printStackTrace(p_stacktrace);
+	CLog.printStackTrace(p_stacktrace);
     }
 
-    public GUIMainModel getGuimainmodel()
+    public GUIMMain getGuimainmodel()
     {
 	return guimainmodel;
     }
@@ -311,7 +312,7 @@ public class GUIMainController implements ITranslation
 
     public void openGUIRepositoryLogin(boolean p_runtranslation, boolean p_closeable)
     {
-	this.guireplogincontroller = new GUIRepositoryLoginController(this);
+	this.guireplogincontroller = new GUICRepositoryLogin(this);
 	guimainmodel.getTranslationlistener().addTranslationListener(guireplogincontroller);
 	startProgram(this.guireplogincontroller.getProgram(), new ImageIcon(), true, p_closeable, null);
 
@@ -320,7 +321,7 @@ public class GUIMainController implements ITranslation
 	    this.runTranslationListener();
 	}
     }
-    
+
     public void closeGUIRepositoryLogin()
     {
 	closeProgram(guireplogincontroller.getProgram());

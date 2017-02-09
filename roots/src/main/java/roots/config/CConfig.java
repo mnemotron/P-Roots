@@ -7,24 +7,24 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import roots.core.SystemProperties;
 
-public class ConfigController
+public class CConfig
 {
-	private static ConfigController configcontroller;
+	private static CConfig configcontroller;
 	private ConfigEntity configentity;
 	private File configfile;
 
-	public static final ConfigController getConfigControllerInstance() throws Exception
+	public static final CConfig getConfigControllerInstance() throws Exception
 	{
 
-		if (ConfigController.configcontroller == null)
+		if (CConfig.configcontroller == null)
 		{
-			ConfigController.configcontroller = new ConfigController();
+			CConfig.configcontroller = new CConfig();
 		}
 
-		return ConfigController.configcontroller;
+		return CConfig.configcontroller;
 	}
 
-	private ConfigController() throws Exception
+	private CConfig() throws Exception
 	{
 		configfile = new File(SystemProperties.c_config_file);
 

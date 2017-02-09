@@ -1,19 +1,19 @@
 package roots.core.gui;
 
-import roots.core.hibernate.HibernateController;
+import roots.core.hibernate.CHibernate;
 
 public class ComboBoxKey
 {
-	private HibernateController.databases database;
+	private CHibernate.databases database;
 	private String description;
 
-	public ComboBoxKey(HibernateController.databases p_database, String p_desc)
+	public ComboBoxKey(CHibernate.databases p_database, String p_desc)
 	{
 		this.database = p_database;
 		this.description = p_desc;
 	}
 
-	public HibernateController.databases getDatabase()
+	public CHibernate.databases getDatabase()
 	{
 		return database;
 	}

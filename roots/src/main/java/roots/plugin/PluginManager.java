@@ -7,15 +7,15 @@ import javax.swing.JPanel;
 
 import org.hibernate.Query;
 
-import roots.core.gui.GUIMainController;
+import roots.core.gui.GUICMain;
 import roots.entities.Repinfo;
 import roots.translation.ITranslation.enum_language;
 
 public class PluginManager implements IPluginManager
 {
-	private GUIMainController guimaincontroller;
+	private GUICMain guimaincontroller;
 
-	public PluginManager(GUIMainController p_guimaincontroller)
+	public PluginManager(GUICMain p_guimaincontroller)
 	{
 		this.guimaincontroller = p_guimaincontroller;
 	}

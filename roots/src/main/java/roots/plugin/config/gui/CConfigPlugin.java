@@ -12,16 +12,16 @@ import roots.plugin.IPluginManager;
 import roots.translation.ITranslation.enum_language;
 import roots.translation.TPForfedre;
 
-public class ConfigPluginController implements IPlugin
+public class CConfigPlugin implements IPlugin
 {
 	private IPluginManager pluginmanager;
-	private GUIConfigController guiconfigcontroller;
+	private GUICConfig guiconfigcontroller;
 
 	private JMenuItem mi_roots_config;
 	
 	private TPForfedre tp;
 
-	public ConfigPluginController()
+	public CConfigPlugin()
 	{
 		pluginmanager = null;
 		guiconfigcontroller = null;
@@ -51,7 +51,7 @@ public class ConfigPluginController implements IPlugin
 	{
 		this.mi_roots_config.setEnabled(false);
 		
-		this.guiconfigcontroller = new GUIConfigController(this.pluginmanager, this);
+		this.guiconfigcontroller = new GUICConfig(this.pluginmanager, this);
 	
 		this.guiconfigcontroller.doTranslation(tp);
 	}

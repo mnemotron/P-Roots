@@ -1,32 +1,32 @@
 package roots;
 
 import java.awt.EventQueue;
-import roots.core.gui.GUIMainController;
+import roots.core.gui.GUICMain;
 
 public class StartRoots
 {
 
-	public static void main(String[] args)
+    public static void main(String[] args)
+    {
+	EventQueue.invokeLater(new Runnable()
 	{
-		EventQueue.invokeLater(new Runnable()
+	    public void run()
+	    {
+		GUICMain guimaincontroller = null;
+
+		try
 		{
-			public void run()
-			{
-				GUIMainController guimaincontroller = null;
-				
-				try
-				{
-				    guimaincontroller = new GUIMainController();
-					
-					guimaincontroller.startGUI();
-					
-				} catch (Exception e)
-				{
-					guimaincontroller.logStackTrace(e.getStackTrace());
-					guimaincontroller.logError(e.getMessage());
-				}
-			}
-		});
-	}
+		    guimaincontroller = new GUICMain();
+
+		    guimaincontroller.startGUI();
+
+		} catch (Exception e)
+		{
+		    guimaincontroller.logStackTrace(e.getStackTrace());
+		    guimaincontroller.logError(e.getMessage());
+		}
+	    }
+	});
+    }
 
 }

@@ -42,6 +42,7 @@ dependencies {
 	compile fileTree(dir: 'libs/jdbc', include: ['*.jar'])
 	compile fileTree(dir: 'libs/log4j', include: ['*.jar'])
 	compile fileTree(dir: 'libs/lookandfeel', include: ['*.jar'])
+	compile fileTree(dir: 'libs/swingx', include: ['*.jar'])
 	compile fileTree(dir: '../roots.entities/libs/eclipselink-2.5.2', include: ['*.jar'])
 }
 

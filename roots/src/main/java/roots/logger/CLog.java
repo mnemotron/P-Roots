@@ -11,7 +11,7 @@ import org.apache.log4j.lf5.viewer.LogBrokerMonitor;
 import roots.core.SystemProperties;
 import roots.misc.DateTimeFormat;
 
-public class LogController
+public class CLog
 {
 
 	private Logger logger;
@@ -19,23 +19,23 @@ public class LogController
 	private DailyRollingFileAppender fileappender;
 	private boolean log;
 
-	private static LogController logcontroller;
+	private static CLog logcontroller;
 
 	private static LogBrokerMonitor logbrokermonitor;
 
 	private final static String c_patternlayout = "%d{ISO8601} %-5p [%t] %c: %m%n";
 
-	public static LogController getLogControllerInstance() throws Exception
+	public static CLog getLogControllerInstance() throws Exception
 	{
-		if (LogController.logcontroller == null)
+		if (CLog.logcontroller == null)
 		{
-			LogController.logcontroller = new LogController();
+			CLog.logcontroller = new CLog();
 		}
 
-		return LogController.logcontroller;
+		return CLog.logcontroller;
 	}
 
-	public LogController() throws Exception
+	public CLog() throws Exception
 	{
 		this.log = true;
 
@@ -73,7 +73,7 @@ public class LogController
 	{
 		try
 		{
-			LogController.getLogControllerInstance();
+			CLog.getLogControllerInstance();
 		
 		} catch (Exception e)
 		{
@@ -81,14 +81,14 @@ public class LogController
 			e.printStackTrace();
 		}
 		
-		return LogController.logbrokermonitor;
+		return CLog.logbrokermonitor;
 	}
 
 	public static void info(Object p_info)
 	{
 		try
 		{
-			LogController logc = LogController.getLogControllerInstance();
+			CLog logc = CLog.getLogControllerInstance();
 
 			if (logc.log)
 			{
@@ -107,7 +107,7 @@ public class LogController
 		try
 		{
 
-			LogController logc = LogController.getLogControllerInstance();
+			CLog logc = CLog.getLogControllerInstance();
 
 			if (logc.log)
 			{
@@ -136,7 +136,7 @@ public class LogController
 	{
 		try
 		{
-			LogController logc = LogController.getLogControllerInstance();
+			CLog logc = CLog.getLogControllerInstance();
 
 			if (logc.log)
 			{
@@ -154,7 +154,7 @@ public class LogController
 	{
 		try
 		{
-			LogController.getLogControllerInstance().log = p_log;
+			CLog.getLogControllerInstance().log = p_log;
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block

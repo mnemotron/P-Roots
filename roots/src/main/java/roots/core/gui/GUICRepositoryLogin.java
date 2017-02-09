@@ -8,20 +8,20 @@ import java.util.List;
 import roots.entities.Repinfo;
 
 import roots.config.ConfigEntity;
-import roots.core.hibernate.HibernateController;
-import roots.core.hibernate.HibernateController.databases;
+import roots.core.hibernate.CHibernate;
+import roots.core.hibernate.CHibernate.databases;
 import roots.misc.DateTimeFormat;
 import roots.translation.ITranslation;
 
-public class GUIRepositoryLoginController implements ITranslation
+public class GUICRepositoryLogin implements ITranslation
 {
 	private static final String c_desc_forfedredb = "Forfedre DB";
 	private static final String c_desc_mysql = "MySQL 3.23, 4.0, 4.1, 5.0";
 
 	private GUIRepositoryLogin guireplogin;
-	private GUIMainController guimaincontroller;
+	private GUICMain guimaincontroller;
 
-	public GUIRepositoryLoginController(GUIMainController p_guimaincontroller)
+	public GUICRepositoryLogin(GUICMain p_guimaincontroller)
 	{
 		this.guimaincontroller = p_guimaincontroller;
 
@@ -53,7 +53,7 @@ public class GUIRepositoryLoginController implements ITranslation
 		guireplogin.getCbx_repname().removeAllItems();
 		guireplogin.getLbl_repcreationdate_dat()
 				.setText(DateTimeFormat.getCurrentDate(DateTimeFormat.c_dd_MM_yyyy_point));
-		guireplogin.getLbl_repversion_dat().setText(HibernateController.c_repository_version);
+		guireplogin.getLbl_repversion_dat().setText(CHibernate.c_repository_version);
 		guireplogin.getTxt_repcreator().setEditable(true);
 		guireplogin.getTxt_repcreator().setText(null);
 		guireplogin.getTxp_repdescription_dat().setText(null);
@@ -102,17 +102,17 @@ public class GUIRepositoryLoginController implements ITranslation
 	private void initializeGUI()
 	{
 		// init database combobox
-		for (HibernateController.databases db : HibernateController.databases.values())
+		for (CHibernate.databases db : CHibernate.databases.values())
 		{
 			ComboBoxKey key = null;
 
 			switch (db)
 			{
 			case FORFEDREDB:
-				key = new ComboBoxKey(db, GUIRepositoryLoginController.c_desc_forfedredb);
+				key = new ComboBoxKey(db, GUICRepositoryLogin.c_desc_forfedredb);
 				break;
 			case MYSQL:
-				key = new ComboBoxKey(db, GUIRepositoryLoginController.c_desc_mysql);
+				key = new ComboBoxKey(db, GUICRepositoryLogin.c_desc_mysql);
 			}
 
 			guireplogin.getCbx_database().addItem(key);
@@ -143,7 +143,7 @@ public class GUIRepositoryLoginController implements ITranslation
 		if (config != null)
 		{
 
-			ComboBoxKeyModel.setSelectedDatabaseItem(config.getDatabase());
+			MComboBoxKey.setSelectedDatabaseItem(config.getDatabase());
 			guireplogin.getTxf_db_location().setText(config.getDblocation());
 			guireplogin.getTxf_db_name().setText(config.getDbname());
 			guireplogin.getCbx_account_spass().setSelected(config.isKeeppassword());
@@ -161,10 +161,10 @@ public class GUIRepositoryLoginController implements ITranslation
 				guireplogin.getTextField_1_1().setEnabled(false);
 				guireplogin.getCbx_account_spass().setEnabled(false);
 
-				guireplogin.getTxf_db_location().setText(HibernateController.c_loc_forfedredb);
-				guireplogin.getTxf_db_name().setText(HibernateController.c_curl_forfedredb);
-				guireplogin.getTextField_1().setText(HibernateController.c_user_hsqldb);
-				guireplogin.getTextField_1_1().setText(HibernateController.c_password_hsqldb);
+				guireplogin.getTxf_db_location().setText(CHibernate.c_loc_forfedredb);
+				guireplogin.getTxf_db_name().setText(CHibernate.c_curl_forfedredb);
+				guireplogin.getTextField_1().setText(CHibernate.c_user_hsqldb);
+				guireplogin.getTextField_1_1().setText(CHibernate.c_password_hsqldb);
 				guireplogin.getCbx_account_spass().setSelected(false);
 			}
 
@@ -225,7 +225,7 @@ public class GUIRepositoryLoginController implements ITranslation
 	public void loginDatabase()
 	{
 		// get login data
-		ComboBoxKey comboboxkey = ComboBoxKeyModel.getSelectedComboBoxKeyItem();
+		ComboBoxKey comboboxkey = MComboBoxKey.getSelectedComboBoxKeyItem();
 		String dblocation = guireplogin.getTxf_db_location().getText();
 		String dbname = guireplogin.getTxf_db_name().getText();
 		String username = guireplogin.getTextField_1().getText();
@@ -248,7 +248,7 @@ public class GUIRepositoryLoginController implements ITranslation
 
 	protected void actionSelectedDatabase()
 	{
-		ComboBoxKey comboboxkey = ComboBoxKeyModel.getSelectedComboBoxKeyItem();
+		ComboBoxKey comboboxkey = MComboBoxKey.getSelectedComboBoxKeyItem();
 
 		if (comboboxkey == null)
 		{
@@ -269,9 +269,9 @@ public class GUIRepositoryLoginController implements ITranslation
 			guireplogin.getTextField_1_1().setEnabled(false);
 			guireplogin.getCbx_account_spass().setEnabled(false);
 
-			guireplogin.getTxf_db_location().setText(HibernateController.c_loc_forfedredb);
-			guireplogin.getTxf_db_name().setText(HibernateController.c_curl_forfedredb);
-			guireplogin.getTextField_1().setText(HibernateController.c_user_hsqldb);
+			guireplogin.getTxf_db_location().setText(CHibernate.c_loc_forfedredb);
+			guireplogin.getTxf_db_name().setText(CHibernate.c_curl_forfedredb);
+			guireplogin.getTextField_1().setText(CHibernate.c_user_hsqldb);
 			guireplogin.getTextField_1_1().setText(null);
 			guireplogin.getCbx_account_spass().setSelected(false);
 			break;
@@ -295,7 +295,7 @@ public class GUIRepositoryLoginController implements ITranslation
 
 	protected void chooseRepository()
 	{
-		ComboBoxRepKey ck = ComboBoxRepKeyModel.getSelectedComboBoxKeyItem();
+		ComboBoxRepKey ck = MComboBoxRepKey.getSelectedComboBoxKeyItem();
 
 		guimaincontroller.chooseRepository(ck.getRepinfo());
 		
@@ -321,7 +321,7 @@ public class GUIRepositoryLoginController implements ITranslation
 
 	protected void showSelectedRepository()
 	{
-		ComboBoxRepKey ck = ComboBoxRepKeyModel.getSelectedComboBoxKeyItem();
+		ComboBoxRepKey ck = MComboBoxRepKey.getSelectedComboBoxKeyItem();
 
 		if (ck.getNewrepname() == null)
 		{

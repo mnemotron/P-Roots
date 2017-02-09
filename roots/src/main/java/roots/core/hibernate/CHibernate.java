@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-public class HibernateController
+public class CHibernate
 {
 
     public static enum databases
@@ -85,7 +85,7 @@ public class HibernateController
     // return HibernateController.hibernatecontroller;
     // }
 
-    public HibernateController(HibernateController.databases p_database, String p_dblocation, String p_dbname,
+    public CHibernate(CHibernate.databases p_database, String p_dblocation, String p_dbname,
 	    String p_dbusername, String p_dbpassword) throws Exception
     {
 
@@ -129,25 +129,25 @@ public class HibernateController
 
     }
 
-    private void setConfigEmbeddedMySQL(HibernateController.databases p_database, String p_dblocation, String p_dbname,
+    private void setConfigEmbeddedMySQL(CHibernate.databases p_database, String p_dblocation, String p_dbname,
 	    String p_dbusername, String p_dbpassword)
     {
-	this.setHibernateDriverClass(HibernateController.c_dc_mysql);
-	this.setHibernateDialect(HibernateController.c_hd_mysql);
-	this.setHibernateConnectionUrl(HibernateController.c_curl_protocol_jdbc_mysql + p_dblocation + p_dbname);
+	this.setHibernateDriverClass(CHibernate.c_dc_mysql);
+	this.setHibernateDialect(CHibernate.c_hd_mysql);
+	this.setHibernateConnectionUrl(CHibernate.c_curl_protocol_jdbc_mysql + p_dblocation + p_dbname);
 	this.setHibernateConnectionUsername(p_dbusername);
 	this.setHibernateConnectionPasswort(p_dbpassword);
     }
 
     private void setConfigEmbeddedForfedreDB()
     {
-	this.setHibernateDriverClass(HibernateController.c_dc_embedded_hsqldb);
-	this.setHibernateDialect(HibernateController.c_hd_hsqldb);
+	this.setHibernateDriverClass(CHibernate.c_dc_embedded_hsqldb);
+	this.setHibernateDialect(CHibernate.c_hd_hsqldb);
 	this.setHibernateConnectionUrl(
-		HibernateController.c_curl_protocol_jdbc_hsqldb + HibernateController.c_loc_forfedredb
-			+ HibernateController.c_curl_forfedredb + HibernateController.c_curl_hsqldb_create);
-	this.setHibernateConnectionUsername(HibernateController.c_user_hsqldb);
-	this.setHibernateConnectionPasswort(HibernateController.c_password_hsqldb);
+		CHibernate.c_curl_protocol_jdbc_hsqldb + CHibernate.c_loc_forfedredb
+			+ CHibernate.c_curl_forfedredb + CHibernate.c_curl_hsqldb_create);
+	this.setHibernateConnectionUsername(CHibernate.c_user_hsqldb);
+	this.setHibernateConnectionPasswort(CHibernate.c_password_hsqldb);
     }
 
     private void setHibernateDriverClass(String p_hdriverclass)

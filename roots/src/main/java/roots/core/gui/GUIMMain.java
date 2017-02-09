@@ -2,43 +2,38 @@ package roots.core.gui;
 
 import java.io.IOException;
 import java.util.List;
-
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import org.hibernate.Query;
 import roots.entities.Repinfo;
-
-import roots.config.ConfigController;
+import roots.config.CConfig;
 import roots.config.ConfigEntity;
-import roots.core.gui.GUIMainController;
-import roots.core.hibernate.HibernateController;
-import roots.logger.LogController;
+import roots.core.gui.GUICMain;
+import roots.core.hibernate.CHibernate;
+import roots.logger.CLog;
 import roots.plugin.IPlugin;
-import roots.plugin.PluginController;
-import roots.plugin.config.gui.ConfigPluginController;
+import roots.plugin.CPlugin;
+import roots.plugin.config.gui.CConfigPlugin;
 import roots.translation.ITranslation;
 import roots.translation.TranslationListener;
 
-public class GUIMainModel
+public class GUIMMain
 {
     public static enum dbconnectionstatus
     {
 	INIT, TRYTOCONNECT, FAILURE, CONNECTED
     }
 
-    private GUIMainModel.dbconnectionstatus dbconstatus;
+    private GUIMMain.dbconnectionstatus dbconstatus;
 
-    private GUIMainController guimaincontroller;
+    private GUICMain guimaincontroller;
 
     private TranslationListener translationlistener;
-    private ConfigController configcontroller;
-    private PluginController plugincontroller;
-    private HibernateController hibernatecontroller;
+    private CConfig configcontroller;
+    private CPlugin plugincontroller;
+    private CHibernate hibernatecontroller;
 
     private Repinfo repinfo;
 
-    public GUIMainModel(GUIMainModel.dbconnectionstatus p_dbconstatus, GUIMainController p_guimaincontroller)
+    public GUIMMain(GUIMMain.dbconnectionstatus p_dbconstatus, GUICMain p_guimaincontroller)
     {
 	this.dbconstatus = p_dbconstatus;
 	this.guimaincontroller = p_guimaincontroller;
@@ -46,14 +41,14 @@ public class GUIMainModel
 	// -- read configuration
 	try
 	{
-	    this.configcontroller = ConfigController.getConfigControllerInstance();
+	    this.configcontroller = CConfig.getConfigControllerInstance();
 	} catch (Exception e)
 	{
 	    this.guimaincontroller.logStackTrace(e.getStackTrace());
 	}
 
 	// -- init plugins
-	this.plugincontroller = PluginController.getPluginControllerInstance();
+	this.plugincontroller = CPlugin.getPluginControllerInstance();
 
 	// -- init translation with selected language
 	this.translationlistener = TranslationListener.getTranslationControllerInstance();
@@ -62,13 +57,13 @@ public class GUIMainModel
 	setGUILookAndFeel();
 
 	// logging or not
-	LogController.setLog(configcontroller.getConfigentity().isLog());
+	CLog.setLog(configcontroller.getConfigentity().isLog());
     }
 
     public void loadInternalPlugins() throws IOException
     {
 	// configuration
-	ConfigPluginController configplugincontroller = new ConfigPluginController();
+	CConfigPlugin configplugincontroller = new CConfigPlugin();
 	this.plugincontroller.loadPlugin(this.guimaincontroller, configplugincontroller);
     }
 
@@ -87,12 +82,12 @@ public class GUIMainModel
 	guimaincontroller.dbConnectionFailure();
     }
 
-    private void dbConnected(HibernateController.databases p_database, String p_dblocation, String p_dbname,
+    private void dbConnected(CHibernate.databases p_database, String p_dblocation, String p_dbname,
 	    String p_username, String p_password, boolean p_keeppassword)
 
     {
 	// succesfully connected
-	dbconstatus = GUIMainModel.dbconnectionstatus.CONNECTED;
+	dbconstatus = GUIMMain.dbconnectionstatus.CONNECTED;
 
 	// save dbconnection to config
 	configcontroller.getConfigentity().setDatabase(p_database);
@@ -131,7 +126,7 @@ public class GUIMainModel
     {
 	if (hibernatecontroller != null)
 	{
-	    dbconstatus = GUIMainModel.dbconnectionstatus.INIT;
+	    dbconstatus = GUIMMain.dbconnectionstatus.INIT;
 
 	    hibernatecontroller.closeSessionFactory();
 
@@ -139,10 +134,10 @@ public class GUIMainModel
 	}
     }
 
-    public void loginDatabase(final HibernateController.databases p_database, final String p_dblocation,
+    public void loginDatabase(final CHibernate.databases p_database, final String p_dblocation,
 	    final String p_dbname, final String p_username, final String p_password, final boolean p_keeppassword)
     {
-	dbconstatus = GUIMainModel.dbconnectionstatus.TRYTOCONNECT;
+	dbconstatus = GUIMMain.dbconnectionstatus.TRYTOCONNECT;
 
 	Runnable run = new Runnable()
 	{
@@ -151,7 +146,7 @@ public class GUIMainModel
 
 		try
 		{
-		    hibernatecontroller = new HibernateController(p_database, p_dblocation, p_dbname, p_username,
+		    hibernatecontroller = new CHibernate(p_database, p_dblocation, p_dbname, p_username,
 			    p_password);
 
 		    hibernatecontroller.buildSessionFactory();
@@ -171,11 +166,11 @@ public class GUIMainModel
 		    hibernatecontroller = null;
 
 		    // database connection failure
-		    dbconstatus = GUIMainModel.dbconnectionstatus.FAILURE;
+		    dbconstatus = GUIMMain.dbconnectionstatus.FAILURE;
 
 		    // TODO failure log
-		    LogController.printStackTrace(e.getStackTrace());
-		    LogController.error(e.getMessage());
+		    CLog.printStackTrace(e.getStackTrace());
+		    CLog.error(e.getMessage());
 
 		    dbConnectionFailure();
 		}
@@ -203,17 +198,17 @@ public class GUIMainModel
 	this.translationlistener.runTranslationListener();
     }
 
-    public GUIMainModel.dbconnectionstatus getDbconstatus()
+    public GUIMMain.dbconnectionstatus getDbconstatus()
     {
 	return dbconstatus;
     }
 
-    public void setDbconstatus(GUIMainModel.dbconnectionstatus dbconstatus)
+    public void setDbconstatus(GUIMMain.dbconnectionstatus dbconstatus)
     {
 	this.dbconstatus = dbconstatus;
     }
 
-    public GUIMainController getGuimaincontroller()
+    public GUICMain getGuimaincontroller()
     {
 	return guimaincontroller;
     }
@@ -223,17 +218,17 @@ public class GUIMainModel
 	return translationlistener;
     }
 
-    public ConfigController getConfigcontroller()
+    public CConfig getConfigcontroller()
     {
 	return configcontroller;
     }
 
-    public PluginController getPlugincontroller()
+    public CPlugin getPlugincontroller()
     {
 	return plugincontroller;
     }
 
-    public HibernateController getHibernatecontroller()
+    public CHibernate getHibernatecontroller()
     {
 	return hibernatecontroller;
     }
@@ -250,7 +245,7 @@ public class GUIMainModel
 	repinfo.setRepname(p_repname);
 	repinfo.setRepdescription(p_description);
 	repinfo.setRepcreator(p_creator);
-	repinfo.setRepversion(HibernateController.c_repository_version);
+	repinfo.setRepversion(CHibernate.c_repository_version);
 	repinfo.setRepcreationdate(roots.misc.DateTimeFormat.getCurrentDate());
 
 	// hibernatecontroller.openSession();

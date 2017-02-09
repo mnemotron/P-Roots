@@ -29,12 +29,12 @@ public class TabButtonComponent extends JPanel
 {
 	private static final long serialVersionUID = 6707757649800174730L;
 
-	private final GUIMainController guimaincontroller;
+	private final GUICMain guimaincontroller;
 	private final JPanel panel;
 	private final IPlugin iplugin;
 	private final JTabbedPane main_tab;
 
-	public TabButtonComponent(final GUIMainController guimaincontroller, final JTabbedPane p_main_tab, ImageIcon ico, final JPanel panel, final IPlugin p_iplugin)
+	public TabButtonComponent(final GUICMain guimaincontroller, final JTabbedPane p_main_tab, ImageIcon ico, final JPanel panel, final IPlugin p_iplugin)
 	{
 
 		super(new FlowLayout(FlowLayout.LEFT, 0, 0));
