@@ -10,8 +10,8 @@ import roots.translation.ITranslation;
 public class ConfigEntity
 {
 
-	private static final String c_forfedre_version = "1.0.0-alpha";
-	private static final String c_forfedre_title = "Roots";
+	private static final String ROOTS_VERSION = "1.0.0-alpha";
+	private static final String ROOTS_TITLE = "Roots";
 
 	private String forfedre_version;
 	private ITranslation.enum_language language;
@@ -28,12 +28,12 @@ public class ConfigEntity
 
 	public ConfigEntity()
 	{
-		this.forfedre_version = ConfigEntity.c_forfedre_version;
+		this.forfedre_version = ConfigEntity.ROOTS_VERSION;
 		this.language = ITranslation.enum_language.en;
 		this.LAFClassName = GUILookAndFeel.getDefaultLookAndFeelClassName();
 
 		this.database = CHibernate.databases.FORFEDREDB;
-		this.dbname = CHibernate.c_curl_forfedredb;
+		this.dbname = CHibernate.ROOTS_DB_CURL;
 		this.dblocation = "";
 		this.dbusername = "";
 		this.dbpassword = "";
@@ -44,12 +44,12 @@ public class ConfigEntity
 
 	public String getForfedreVersionTitle()
 	{
-		return ConfigEntity.c_forfedre_title + " " + ConfigEntity.c_forfedre_version;
+		return ConfigEntity.ROOTS_TITLE + " " + ConfigEntity.ROOTS_VERSION;
 	}
 	
 	public String getForfedreTitle()
 	{
-		return ConfigEntity.c_forfedre_title;
+		return ConfigEntity.ROOTS_TITLE;
 	}
 
 	public String getForfedreVersion()

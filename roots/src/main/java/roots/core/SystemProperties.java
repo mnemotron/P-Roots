@@ -2,12 +2,12 @@ package roots.core;
 
 public class SystemProperties
 {
-	public final static String c_defaultlogdir = "logs";
-	public final static String c_plugindir = "plugins";
+	public final static String DEFAULT_LOG_DIR = "logs";
+	public final static String PLUGIN_DIR = "plugins";
 	
-	public final static String c_log_fileextension = ".log";
+	public final static String LOG_FILE_EXTENSION = ".log";
 	
-	public static final String c_config_file = "config.xml";
+	public static final String CONFIG_FILE = "config.xml";
 
 	public static String getFileSeparator()
 	{

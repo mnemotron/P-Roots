@@ -29,8 +29,5 @@ public final class SystemResourceIcons
     
     // gui
     public static final String ICON_REPOSITORY_CREATE = "/roots/icons/repcreate.png";
-    public static final String ICON_REPOSITORY_LOGIN = "/roots/icons/repositorylogin/dblogin.png";
-    
-    public static final String ICON_REPOSITORY_ACCOUNT = "/roots/icons/repositorylogin/account64.png";
     
 }

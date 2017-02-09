@@ -15,8 +15,8 @@ import roots.translation.ITranslation;
 
 public class GUICRepositoryLogin implements ITranslation
 {
-	private static final String c_desc_forfedredb = "Forfedre DB";
-	private static final String c_desc_mysql = "MySQL 3.23, 4.0, 4.1, 5.0";
+	private static final String ROOTSDB_DESCRIPTION = "Roots DB";
+	private static final String MYSQL_DESCRIPTION = "MySQL 3.23, 4.0, 4.1, 5.0";
 
 	private GUIRepositoryLogin guireplogin;
 	private GUICMain guimaincontroller;
@@ -53,12 +53,12 @@ public class GUICRepositoryLogin implements ITranslation
 		guireplogin.getCbx_repname().removeAllItems();
 		guireplogin.getLbl_repcreationdate_dat()
 				.setText(DateTimeFormat.getCurrentDate(DateTimeFormat.c_dd_MM_yyyy_point));
-		guireplogin.getLbl_repversion_dat().setText(CHibernate.c_repository_version);
+		guireplogin.getLbl_repversion_dat().setText(CHibernate.REPOSITORY_VERSION);
 		guireplogin.getTxt_repcreator().setEditable(true);
 		guireplogin.getTxt_repcreator().setText(null);
 		guireplogin.getTxp_repdescription_dat().setText(null);
 
-		guireplogin.getBtn_rep_choose().setName(GUIRepositoryLogin.c_btn_rep_choose2);
+		guireplogin.getBtn_rep_choose().setName(GUIRepositoryLogin.BTN_REP_CHOOSE2);
 		do_translation(guimaincontroller.getConfigEntity().getLanguage());
 
 	}
@@ -80,7 +80,7 @@ public class GUICRepositoryLogin implements ITranslation
 		guireplogin.getTxp_repdescription_dat().setEditable(false);
 		guireplogin.getBtn_rep_choose().setEnabled(false);
 
-		guireplogin.getBtn_rep_choose().setName(GUIRepositoryLogin.c_btn_rep_choose1);
+		guireplogin.getBtn_rep_choose().setName(GUIRepositoryLogin.BTN_REP_CHOOSE1);
 		do_translation(guimaincontroller.getConfigEntity().getLanguage());
 
 		// set selected repositories
@@ -109,10 +109,10 @@ public class GUICRepositoryLogin implements ITranslation
 			switch (db)
 			{
 			case FORFEDREDB:
-				key = new ComboBoxKey(db, GUICRepositoryLogin.c_desc_forfedredb);
+				key = new ComboBoxKey(db, GUICRepositoryLogin.ROOTSDB_DESCRIPTION);
 				break;
 			case MYSQL:
-				key = new ComboBoxKey(db, GUICRepositoryLogin.c_desc_mysql);
+				key = new ComboBoxKey(db, GUICRepositoryLogin.MYSQL_DESCRIPTION);
 			}
 
 			guireplogin.getCbx_database().addItem(key);
@@ -161,10 +161,10 @@ public class GUICRepositoryLogin implements ITranslation
 				guireplogin.getTextField_1_1().setEnabled(false);
 				guireplogin.getCbx_account_spass().setEnabled(false);
 
-				guireplogin.getTxf_db_location().setText(CHibernate.c_loc_forfedredb);
-				guireplogin.getTxf_db_name().setText(CHibernate.c_curl_forfedredb);
-				guireplogin.getTextField_1().setText(CHibernate.c_user_hsqldb);
-				guireplogin.getTextField_1_1().setText(CHibernate.c_password_hsqldb);
+				guireplogin.getTxf_db_location().setText(CHibernate.ROOTS_DB_LOC);
+				guireplogin.getTxf_db_name().setText(CHibernate.ROOTS_DB_CURL);
+				guireplogin.getTextField_1().setText(CHibernate.HSQLDB_USER);
+				guireplogin.getTextField_1_1().setText(CHibernate.HSQLDB_PASSWORD);
 				guireplogin.getCbx_account_spass().setSelected(false);
 			}
 
@@ -177,8 +177,8 @@ public class GUICRepositoryLogin implements ITranslation
 			guireplogin.getCbx_account_spass().setSelected(false);
 		}
 
-		guireplogin.getBtn_db_connect().setName(GUIRepositoryLogin.c_btn_db_connect1);
-		guireplogin.getBtn_rep_choose().setName(GUIRepositoryLogin.c_btn_rep_choose1);
+		guireplogin.getBtn_db_connect().setName(GUIRepositoryLogin.BTN_DB_CONNECT1);
+		guireplogin.getBtn_rep_choose().setName(GUIRepositoryLogin.BTN_REP_CHOOSE1);
 
 		guireplogin.getCbx_repname().removeAllItems();
 		guireplogin.getLbl_repversion_dat().setText(null);
@@ -201,7 +201,7 @@ public class GUICRepositoryLogin implements ITranslation
 
 		guireplogin.getBtn_db_connect().setEnabled(true);
 
-		guireplogin.getBtn_db_connect().setName(GUIRepositoryLogin.c_btn_db_connect2);
+		guireplogin.getBtn_db_connect().setName(GUIRepositoryLogin.BTN_DB_CONNECT2);
 
 		do_translation(guimaincontroller.getConfigEntity().getLanguage());
 	}
@@ -269,9 +269,9 @@ public class GUICRepositoryLogin implements ITranslation
 			guireplogin.getTextField_1_1().setEnabled(false);
 			guireplogin.getCbx_account_spass().setEnabled(false);
 
-			guireplogin.getTxf_db_location().setText(CHibernate.c_loc_forfedredb);
-			guireplogin.getTxf_db_name().setText(CHibernate.c_curl_forfedredb);
-			guireplogin.getTextField_1().setText(CHibernate.c_user_hsqldb);
+			guireplogin.getTxf_db_location().setText(CHibernate.ROOTS_DB_LOC);
+			guireplogin.getTxf_db_name().setText(CHibernate.ROOTS_DB_CURL);
+			guireplogin.getTextField_1().setText(CHibernate.HSQLDB_USER);
 			guireplogin.getTextField_1_1().setText(null);
 			guireplogin.getCbx_account_spass().setSelected(false);
 			break;

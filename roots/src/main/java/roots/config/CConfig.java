@@ -26,13 +26,12 @@ public class CConfig
 
 	private CConfig() throws Exception
 	{
-		configfile = new File(SystemProperties.c_config_file);
+		configfile = new File(SystemProperties.CONFIG_FILE);
 
 		this.configentity = new ConfigEntity();
 
 		try
 		{
-
 			this.readConfig();
 
 		} catch (Exception e)

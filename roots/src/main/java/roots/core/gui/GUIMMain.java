@@ -17,288 +17,283 @@ import roots.translation.TranslationListener;
 
 public class GUIMMain
 {
-    public static enum dbconnectionstatus
-    {
-	INIT, TRYTOCONNECT, FAILURE, CONNECTED
-    }
-
-    private GUIMMain.dbconnectionstatus dbconstatus;
-
-    private GUICMain guimaincontroller;
-
-    private TranslationListener translationlistener;
-    private CConfig configcontroller;
-    private CPlugin plugincontroller;
-    private CHibernate hibernatecontroller;
-
-    private Repinfo repinfo;
-
-    public GUIMMain(GUIMMain.dbconnectionstatus p_dbconstatus, GUICMain p_guimaincontroller)
-    {
-	this.dbconstatus = p_dbconstatus;
-	this.guimaincontroller = p_guimaincontroller;
-
-	// -- read configuration
-	try
+	public static enum dbconnectionstatus
 	{
-	    this.configcontroller = CConfig.getConfigControllerInstance();
-	} catch (Exception e)
-	{
-	    this.guimaincontroller.logStackTrace(e.getStackTrace());
+		INIT, TRYTOCONNECT, FAILURE, CONNECTED
 	}
 
-	// -- init plugins
-	this.plugincontroller = CPlugin.getPluginControllerInstance();
+	private GUIMMain.dbconnectionstatus dbconstatus;
 
-	// -- init translation with selected language
-	this.translationlistener = TranslationListener.getTranslationControllerInstance();
+	private GUICMain guimaincontroller;
 
-	// set look and feel
-	setGUILookAndFeel();
+	private TranslationListener translationlistener;
+	private CConfig configcontroller;
+	private CPlugin plugincontroller;
+	private CHibernate hibernatecontroller;
 
-	// logging or not
-	CLog.setLog(configcontroller.getConfigentity().isLog());
-    }
+	private Repinfo repinfo;
 
-    public void loadInternalPlugins() throws IOException
-    {
-	// configuration
-	CConfigPlugin configplugincontroller = new CConfigPlugin();
-	this.plugincontroller.loadPlugin(this.guimaincontroller, configplugincontroller);
-    }
-
-    public void loadExternalPlugins() throws IOException
-    {
-	this.plugincontroller.loadExternalPlugins(guimaincontroller);
-    }
-
-    public void fireProgramClosed(IPlugin p_iplugin)
-    {
-	this.plugincontroller.fireSingleClosed(p_iplugin);
-    }
-
-    private void dbConnectionFailure()
-    {
-	guimaincontroller.dbConnectionFailure();
-    }
-
-    private void dbConnected(CHibernate.databases p_database, String p_dblocation, String p_dbname,
-	    String p_username, String p_password, boolean p_keeppassword)
-
-    {
-	// succesfully connected
-	dbconstatus = GUIMMain.dbconnectionstatus.CONNECTED;
-
-	// save dbconnection to config
-	configcontroller.getConfigentity().setDatabase(p_database);
-	configcontroller.getConfigentity().setDblocation(p_dblocation);
-	configcontroller.getConfigentity().setDbname(p_dbname);
-	configcontroller.getConfigentity().setKeeppassword(p_keeppassword);
-
-	if (p_keeppassword)
+	public GUIMMain(GUIMMain.dbconnectionstatus p_dbconstatus, GUICMain p_guimaincontroller)
 	{
-	    configcontroller.getConfigentity().setDbusername(p_username);
-	    configcontroller.getConfigentity().setDbpassword(p_password);
+		this.dbconstatus = p_dbconstatus;
+		this.guimaincontroller = p_guimaincontroller;
+
+		// read configuration
+		try
+		{
+			this.configcontroller = CConfig.getConfigControllerInstance();
+		} catch (Exception e)
+		{
+			this.guimaincontroller.logStackTrace(e.getStackTrace());
+		}
+
+		// init plugins
+		this.plugincontroller = CPlugin.getPluginControllerInstance();
+
+		// init translation with selected language
+		this.translationlistener = TranslationListener.getTranslationControllerInstance();
+
+		// set look and feel
+		setGUILookAndFeel();
+
+		// logging or not
+		CLog.setLog(configcontroller.getConfigentity().isLog());
 	}
 
-	try
+	public void loadInternalPlugins() throws IOException
 	{
-	    configcontroller.saveConfig();
-	} catch (Exception e)
-	{
-	    this.guimaincontroller.logStackTrace(e.getStackTrace());
+		// configuration
+		CConfigPlugin configplugincontroller = new CConfigPlugin();
+		this.plugincontroller.loadPlugin(this.guimaincontroller, configplugincontroller);
 	}
 
-	// select repositories
-
-	// hibernatecontroller.openSession();
-	hibernatecontroller.beginTransaction();
-	Query query = hibernatecontroller.createQuery("from Repinfo");
-	hibernatecontroller.commitTransaction();
-	// hibernatecontroller.closeSession();
-
-	List<?> list_repinfo = query.list();
-
-	guimaincontroller.dbConnected(list_repinfo);
-    }
-
-    public void disconnectDatabase()
-    {
-	if (hibernatecontroller != null)
+	public void loadExternalPlugins() throws IOException
 	{
-	    dbconstatus = GUIMMain.dbconnectionstatus.INIT;
-
-	    hibernatecontroller.closeSessionFactory();
-
-	    hibernatecontroller = null;
+		this.plugincontroller.loadExternalPlugins(guimaincontroller);
 	}
-    }
 
-    public void loginDatabase(final CHibernate.databases p_database, final String p_dblocation,
-	    final String p_dbname, final String p_username, final String p_password, final boolean p_keeppassword)
-    {
-	dbconstatus = GUIMMain.dbconnectionstatus.TRYTOCONNECT;
-
-	Runnable run = new Runnable()
+	public void fireProgramClosed(IPlugin p_iplugin)
 	{
-	    public void run()
-	    {
+		this.plugincontroller.fireSingleClosed(p_iplugin);
+	}
+
+	private void dbConnectionFailure()
+	{
+		guimaincontroller.dbConnectionFailure();
+	}
+
+	private void dbConnected(CHibernate.databases p_database, String p_dblocation, String p_dbname, String p_username, String p_password, boolean p_keeppassword)
+
+	{
+		// succesfully connected
+		dbconstatus = GUIMMain.dbconnectionstatus.CONNECTED;
+
+		// save dbconnection to config
+		configcontroller.getConfigentity().setDatabase(p_database);
+		configcontroller.getConfigentity().setDblocation(p_dblocation);
+		configcontroller.getConfigentity().setDbname(p_dbname);
+		configcontroller.getConfigentity().setKeeppassword(p_keeppassword);
+
+		if (p_keeppassword)
+		{
+			configcontroller.getConfigentity().setDbusername(p_username);
+			configcontroller.getConfigentity().setDbpassword(p_password);
+		}
 
 		try
 		{
-		    hibernatecontroller = new CHibernate(p_database, p_dblocation, p_dbname, p_username,
-			    p_password);
-
-		    hibernatecontroller.buildSessionFactory();
-
-		    hibernatecontroller.openSession();
-
-		    hibernatecontroller.beginTransaction();
-
-		    hibernatecontroller.commitTransaction();
-
-		    // hibernatecontroller.closeSession();
-
-		    dbConnected(p_database, p_dblocation, p_dbname, p_username, p_password, p_keeppassword);
-
+			configcontroller.saveConfig();
 		} catch (Exception e)
 		{
-		    hibernatecontroller = null;
-
-		    // database connection failure
-		    dbconstatus = GUIMMain.dbconnectionstatus.FAILURE;
-
-		    // TODO failure log
-		    CLog.printStackTrace(e.getStackTrace());
-		    CLog.error(e.getMessage());
-
-		    dbConnectionFailure();
+			this.guimaincontroller.logStackTrace(e.getStackTrace());
 		}
-	    }
-	};
 
-	Thread t = new Thread(run);
+		// select repositories
 
-	t.start();
-    }
+		// hibernatecontroller.openSession();
+		hibernatecontroller.beginTransaction();
+		Query query = hibernatecontroller.createQuery("from Repinfo");
+		hibernatecontroller.commitTransaction();
+		// hibernatecontroller.closeSession();
 
-    public void setLanguage(ITranslation.enum_language p_language)
-    {
-	this.configcontroller.getConfigentity().setLanguage(p_language);
+		List<?> list_repinfo = query.list();
 
-	try
-	{
-	    this.configcontroller.saveConfig();
-	} catch (Exception e)
-	{
-	    this.guimaincontroller.logStackTrace(e.getStackTrace());
+		guimaincontroller.dbConnected(list_repinfo);
 	}
 
-	this.translationlistener.setLanguage(p_language);
-	this.translationlistener.runTranslationListener();
-    }
-
-    public GUIMMain.dbconnectionstatus getDbconstatus()
-    {
-	return dbconstatus;
-    }
-
-    public void setDbconstatus(GUIMMain.dbconnectionstatus dbconstatus)
-    {
-	this.dbconstatus = dbconstatus;
-    }
-
-    public GUICMain getGuimaincontroller()
-    {
-	return guimaincontroller;
-    }
-
-    public TranslationListener getTranslationlistener()
-    {
-	return translationlistener;
-    }
-
-    public CConfig getConfigcontroller()
-    {
-	return configcontroller;
-    }
-
-    public CPlugin getPlugincontroller()
-    {
-	return plugincontroller;
-    }
-
-    public CHibernate getHibernatecontroller()
-    {
-	return hibernatecontroller;
-    }
-
-    public ConfigEntity getConfigEntity()
-    {
-	return configcontroller.getConfigentity();
-    }
-
-    public boolean createRepository(String p_repname, String p_description, String p_creator)
-    {
-	repinfo = new Repinfo();
-
-	repinfo.setRepname(p_repname);
-	repinfo.setRepdescription(p_description);
-	repinfo.setRepcreator(p_creator);
-	repinfo.setRepversion(CHibernate.c_repository_version);
-	repinfo.setRepcreationdate(roots.misc.DateTimeFormat.getCurrentDate());
-
-	// hibernatecontroller.openSession();
-	hibernatecontroller.beginTransaction();
-	hibernatecontroller.saveOrUpdate(repinfo);
-	hibernatecontroller.commitTransaction();
-	// hibernatecontroller.closeSession();
-
-	return true;
-    }
-
-    public boolean chooseRepository(Repinfo p_repinfo)
-    {
-	this.repinfo = p_repinfo;
-
-	return true;
-    }
-
-    protected void setGUILookAndFeel()
-    {
-	if (configcontroller.getConfigentity().getLookandfeel() != null)
+	public void disconnectDatabase()
 	{
-	    GUILookAndFeel.setLookAndFeel(configcontroller.getConfigentity().getLookandfeel());
+		if (hibernatecontroller != null)
+		{
+			dbconstatus = GUIMMain.dbconnectionstatus.INIT;
+
+			hibernatecontroller.closeSessionFactory();
+
+			hibernatecontroller = null;
+		}
 	}
-    }
 
-    public void saveOrUpdate(Object p_object)
-    {
-	this.hibernatecontroller.saveOrUpdate(p_object);
-    }
+	public void loginDatabase(final CHibernate.databases p_database, final String p_dblocation, final String p_dbname, final String p_username, final String p_password, final boolean p_keeppassword)
+	{
+		dbconstatus = GUIMMain.dbconnectionstatus.TRYTOCONNECT;
 
-    public void beginTransaction()
-    {
-	this.hibernatecontroller.beginTransaction();
-    }
+		Runnable run = new Runnable()
+		{
+			public void run()
+			{
 
-    public void commitTransaction()
-    {
-	this.hibernatecontroller.commitTransaction();
-    }
+				try
+				{
+					hibernatecontroller = new CHibernate(p_database, p_dblocation, p_dbname, p_username, p_password);
 
-    public Repinfo getRepinfo()
-    {
-	return repinfo;
-    }
+					hibernatecontroller.buildSessionFactory();
 
-    public void setRepinfo(Repinfo repinfo)
-    {
-	this.repinfo = repinfo;
-    }
+					hibernatecontroller.openSession();
 
-    public Query createQuery(String p_query)
-    {
-	return this.hibernatecontroller.createQuery(p_query);
-    }
+					hibernatecontroller.beginTransaction();
+
+					hibernatecontroller.commitTransaction();
+
+					// hibernatecontroller.closeSession();
+
+					dbConnected(p_database, p_dblocation, p_dbname, p_username, p_password, p_keeppassword);
+
+				} catch (Exception e)
+				{
+					hibernatecontroller = null;
+
+					// database connection failure
+					dbconstatus = GUIMMain.dbconnectionstatus.FAILURE;
+
+					// TODO failure log
+					CLog.printStackTrace(e.getStackTrace());
+					CLog.error(e.getMessage());
+
+					dbConnectionFailure();
+				}
+			}
+		};
+
+		Thread t = new Thread(run);
+
+		t.start();
+	}
+
+	public void setLanguage(ITranslation.enum_language p_language)
+	{
+		this.configcontroller.getConfigentity().setLanguage(p_language);
+
+		try
+		{
+			this.configcontroller.saveConfig();
+		} catch (Exception e)
+		{
+			this.guimaincontroller.logStackTrace(e.getStackTrace());
+		}
+
+		this.translationlistener.setLanguage(p_language);
+		this.translationlistener.runTranslationListener();
+	}
+
+	public GUIMMain.dbconnectionstatus getDbconstatus()
+	{
+		return dbconstatus;
+	}
+
+	public void setDbconstatus(GUIMMain.dbconnectionstatus dbconstatus)
+	{
+		this.dbconstatus = dbconstatus;
+	}
+
+	public GUICMain getGuimaincontroller()
+	{
+		return guimaincontroller;
+	}
+
+	public TranslationListener getTranslationlistener()
+	{
+		return translationlistener;
+	}
+
+	public CConfig getConfigcontroller()
+	{
+		return configcontroller;
+	}
+
+	public CPlugin getPlugincontroller()
+	{
+		return plugincontroller;
+	}
+
+	public CHibernate getHibernatecontroller()
+	{
+		return hibernatecontroller;
+	}
+
+	public ConfigEntity getConfigEntity()
+	{
+		return configcontroller.getConfigentity();
+	}
+
+	public boolean createRepository(String p_repname, String p_description, String p_creator)
+	{
+		repinfo = new Repinfo();
+
+		repinfo.setRepname(p_repname);
+		repinfo.setRepdescription(p_description);
+		repinfo.setRepcreator(p_creator);
+		repinfo.setRepversion(CHibernate.REPOSITORY_VERSION);
+		repinfo.setRepcreationdate(roots.misc.DateTimeFormat.getCurrentDate());
+
+		hibernatecontroller.beginTransaction();
+		hibernatecontroller.saveOrUpdate(repinfo);
+		hibernatecontroller.commitTransaction();
+
+		return true;
+	}
+
+	public boolean chooseRepository(Repinfo p_repinfo)
+	{
+		this.repinfo = p_repinfo;
+
+		return true;
+	}
+
+	protected void setGUILookAndFeel()
+	{
+		if (configcontroller.getConfigentity().getLookandfeel() != null)
+		{
+			GUILookAndFeel.setLookAndFeel(configcontroller.getConfigentity().getLookandfeel());
+		}
+	}
+
+	public void saveOrUpdate(Object p_object)
+	{
+		this.hibernatecontroller.saveOrUpdate(p_object);
+	}
+
+	public void beginTransaction()
+	{
+		this.hibernatecontroller.beginTransaction();
+	}
+
+	public void commitTransaction()
+	{
+		this.hibernatecontroller.commitTransaction();
+	}
+
+	public Repinfo getRepinfo()
+	{
+		return repinfo;
+	}
+
+	public void setRepinfo(Repinfo repinfo)
+	{
+		this.repinfo = repinfo;
+	}
+
+	public Query createQuery(String p_query)
+	{
+		return this.hibernatecontroller.createQuery(p_query);
+	}
 }

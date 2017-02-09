@@ -41,7 +41,7 @@ public class CPlugin implements ITranslation
 	{
 		List<IPlugin> plugins_tmp = null;
 
-		plugins_tmp = CPlugin.loadPlugins(new File(SystemProperties.c_plugindir));
+		plugins_tmp = CPlugin.loadPlugins(new File(SystemProperties.PLUGIN_DIR));
 
 		PluginManager pluginmanager = new PluginManager(p_guimaincontroller);
 

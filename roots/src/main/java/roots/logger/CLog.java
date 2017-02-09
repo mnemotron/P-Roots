@@ -23,7 +23,7 @@ public class CLog
 
 	private static LogBrokerMonitor logbrokermonitor;
 
-	private final static String c_patternlayout = "%d{ISO8601} %-5p [%t] %c: %m%n";
+	private final static String LAYOUT_PATTERN = "%d{ISO8601} %-5p [%t] %c: %m%n";
 
 	public static CLog getLogControllerInstance() throws Exception
 	{
@@ -51,9 +51,9 @@ public class CLog
 
 		this.logger = Logger.getRootLogger();
 
-		this.patternlayout = new PatternLayout(c_patternlayout);
+		this.patternlayout = new PatternLayout(LAYOUT_PATTERN);
 
-		l_path = l_userdir + l_fileseparator + SystemProperties.c_defaultlogdir + l_fileseparator + l_currentdate + SystemProperties.c_log_fileextension;
+		l_path = l_userdir + l_fileseparator + SystemProperties.DEFAULT_LOG_DIR + l_fileseparator + l_currentdate + SystemProperties.LOG_FILE_EXTENSION;
 
 		fileappender = new DailyRollingFileAppender(this.patternlayout, l_path, DateTimeFormat.c_dd_MM_yyyy_underline);
 

@@ -5,12 +5,12 @@ import java.io.FileFilter;
 
 public class JARFileFilter implements FileFilter
 {
-	private static final String c_jarfile = ".jar";
+	private static final String FILE_JAR = ".jar";
 
 	@Override
 	public boolean accept(File f)
 	{
-		return f.getName().toLowerCase().endsWith(JARFileFilter.c_jarfile);
+		return f.getName().toLowerCase().endsWith(JARFileFilter.FILE_JAR);
 	}
 
 }
