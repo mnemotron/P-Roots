@@ -12,7 +12,7 @@ import roots.plugin.IPluginManager;
 import roots.translation.ITranslation.enum_language;
 import roots.plugin.info.about.translation.TPAbout;
 
-public class PluginSubController implements IPlugin
+public class CPlugin implements IPlugin
 {
 	private IPluginManager pluginmanager;
 	private GUIAboutController guiaboutcontroller;
@@ -21,7 +21,7 @@ public class PluginSubController implements IPlugin
 	
 	private TPAbout tp;
 
-	public PluginSubController()
+	public CPlugin()
 	{
 		pluginmanager = null;
 		guiaboutcontroller = null;

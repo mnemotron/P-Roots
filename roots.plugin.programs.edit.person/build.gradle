@@ -22,6 +22,7 @@ repositories {
 dependencies {
     compile "roots.entities:roots.entities:1.0"
     compile "roots.plugin:roots.plugin:1.0"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 // SOURCE SET
@@ -40,3 +41,4 @@ task copyPluginToRoot(type: Copy) {
 } 
 
 build.finalizedBy copyPluginToRoot
+
