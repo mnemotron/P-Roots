@@ -81,9 +81,6 @@ public class GUIRepositoryLogin extends JPanel
 	{
 		this.guireplogincontroller = p_guireplogincontroller;
 
-		// -- set Font
-		// this.font = GUILayout.font_tahoma_bold_12;
-
 		setBorder(null);
 		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 50));
 

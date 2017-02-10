@@ -9,10 +9,10 @@ import roots.entities.Repinfo;
 
 public class MComboBoxRepKey implements MutableComboBoxModel
 {
-	public static ArrayList<ComboBoxRepKey> entries = new ArrayList<ComboBoxRepKey>();
-	private static int sel_index = -1;
+	public ArrayList<ComboBoxRepKey> entries = new ArrayList<ComboBoxRepKey>();
+	private int sel_index = -1;
 
-	public static ComboBoxRepKey getSelectedComboBoxKeyItem()
+	public ComboBoxRepKey getSelectedComboBoxKeyItem()
 	{
 		if (sel_index < 0)
 		{
@@ -22,7 +22,7 @@ public class MComboBoxRepKey implements MutableComboBoxModel
 		return entries.get(sel_index);
 	}
 
-	public static void setSelectedRepinfoItem(Repinfo p_repinfo)
+	public void setSelectedRepinfoItem(Repinfo p_repinfo)
 	{
 		int size = entries.size();
 
@@ -39,8 +39,8 @@ public class MComboBoxRepKey implements MutableComboBoxModel
 	@Override
 	public Object getSelectedItem()
 	{
-		int i  = entries.size();
-		
+		int i = entries.size();
+
 		if (sel_index < 0 || i == 0)
 		{
 			return null;
@@ -61,15 +61,15 @@ public class MComboBoxRepKey implements MutableComboBoxModel
 
 		for (int i = 0; i < size; i++)
 		{
-			
+
 			String tmp = ((ComboBoxRepKey) entries.get(i)).getRepDesc();
-			if (tmp.compareTo((String)anItem) == 0)
+			if (tmp.compareTo((String) anItem) == 0)
 			{
 				sel_index = i;
 				return;
 			}
 		}
-		
+
 		if (anItem instanceof String)
 		{
 			entries.clear();
@@ -92,7 +92,8 @@ public class MComboBoxRepKey implements MutableComboBoxModel
 		if (entries.get(arg0).getNewrepname() != null)
 		{
 			return (entries.get(arg0).getNewrepname());
-		} else
+		}
+		else
 		{
 			return (entries.get(arg0).getRepDesc());
 		}
@@ -134,15 +135,15 @@ public class MComboBoxRepKey implements MutableComboBoxModel
 		{
 			ComboBoxRepKey ck = (ComboBoxRepKey) entries.get(i);
 			String tmp = ck.getRepDesc();
-			if (tmp.compareTo((String)arg0) == 0)
+			if (tmp.compareTo((String) arg0) == 0)
 			{
 				entries.remove(ck);
-				
+
 				if ((size - 1) < 1)
 				{
 					sel_index = -1;
 				}
-				
+
 				return;
 			}
 		}

@@ -113,7 +113,7 @@ public class GUICMain implements ITranslation
 		guireplogincontroller.dbConnectionFailure();
 	}
 
-	public void dbConnected(List<?> p_replist)
+	public void dbConnected(List<Repinfo> p_replist)
 	{
 		guireplogincontroller.dbConnected(p_replist);
 

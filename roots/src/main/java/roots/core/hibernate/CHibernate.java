@@ -69,6 +69,7 @@ public class CHibernate
 	private Configuration configuration;
 	private Session session;
 	private Transaction transaction;
+	private CHibernate.databases database;
 
 	// public static HibernateController
 	// getHibernateControllerInstance(HibernateController.databases p_database,
@@ -95,10 +96,13 @@ public class CHibernate
 			case FORFEDREDB:
 				this.setConfigEmbeddedForfedreDB();
 				break;
+
 			case MYSQL:
 				this.setConfigEmbeddedMySQL(p_database, p_dblocation, p_dbname, p_dbusername, p_dbpassword);
 				break;
 		}
+
+		this.database = p_database;
 
 		configuration.setProperty(HIBERNATE_PROPERTY_TRANSACTION_FACTORY_CLASS, "org.hibernate.transaction.JDBCTransactionFactory");
 		configuration.setProperty(HIBERNATE_PROPERTY_HBM2DDL_AUTO, "update");
@@ -175,6 +179,21 @@ public class CHibernate
 		this.configuration.setProperty(p_property, p_value);
 	}
 
+	private String getConfProperty(String property)
+	{
+		return this.configuration.getProperty(property);
+	}
+
+	public String getHibernateConnectionPassword()
+	{
+		return this.getConfProperty(HIBERNATE_PROPERTY_CONNECTION_PASSWORD);
+	}
+
+	public String getHibernateConnectionUsername()
+	{
+		return this.getConfProperty(HIBERNATE_PROPERTY_CONNECTION_USERNAME);
+	}
+
 	public Query createQuery(String p_string)
 	{
 		return session.createQuery(p_string);
@@ -228,5 +247,10 @@ public class CHibernate
 	public boolean isConnected()
 	{
 		return session.isConnected();
+	}
+
+	public CHibernate.databases getDatabase()
+	{
+		return this.database;
 	}
 }

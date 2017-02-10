@@ -109,14 +109,7 @@ public class GUIMMain
 		}
 
 		// select repositories
-
-		// hibernatecontroller.openSession();
-		hibernatecontroller.beginTransaction();
-		Query query = hibernatecontroller.createQuery("from Repinfo");
-		hibernatecontroller.commitTransaction();
-		// hibernatecontroller.closeSession();
-
-		List<?> list_repinfo = query.list();
+		List<Repinfo> list_repinfo = this.selectAllRepinfo();
 
 		guimaincontroller.dbConnected(list_repinfo);
 	}
@@ -154,8 +147,6 @@ public class GUIMMain
 
 					hibernatecontroller.commitTransaction();
 
-					// hibernatecontroller.closeSession();
-
 					dbConnected(p_database, p_dblocation, p_dbname, p_username, p_password, p_keeppassword);
 
 				} catch (Exception e)
@@ -165,7 +156,6 @@ public class GUIMMain
 					// database connection failure
 					dbconstatus = GUIMMain.dbconnectionstatus.FAILURE;
 
-					// TODO failure log
 					CLog.printStackTrace(e.getStackTrace());
 					CLog.error(e.getMessage());
 
@@ -295,5 +285,35 @@ public class GUIMMain
 	public Query createQuery(String p_query)
 	{
 		return this.hibernatecontroller.createQuery(p_query);
+	}
+
+	public boolean isConnected()
+	{
+		if (this.hibernatecontroller != null)
+		{
+			return this.hibernatecontroller.isConnected();
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public CHibernate.databases getDatabase()
+	{
+		return this.hibernatecontroller.getDatabase();
+	}
+
+	public List<Repinfo> selectAllRepinfo()
+	{
+		hibernatecontroller.beginTransaction();
+
+		Query query = hibernatecontroller.createQuery("from Repinfo");
+
+		hibernatecontroller.commitTransaction();
+
+		List<Repinfo> list_repinfo = query.list();
+
+		return list_repinfo;
 	}
 }

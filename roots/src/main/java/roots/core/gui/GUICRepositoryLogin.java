@@ -29,9 +29,18 @@ public class GUICRepositoryLogin implements ITranslation
 		guireplogin = new GUIRepositoryLogin(this);
 
 		// init GUI
-		initializeGUI();
+		initCbxDatabases();
 
 		setStatusInit();
+
+		if (this.guimaincontroller.getGuimainmodel().isConnected())
+		{
+			List<Repinfo> list_repinfo = this.guimaincontroller.getGuimainmodel().selectAllRepinfo();
+			this.dbConnected(list_repinfo);
+			this.setStatusChooseRep(list_repinfo);
+			this.chooseRepository(this.guimaincontroller.getGuimainmodel().getRepinfo());
+			this.showSelectedRepository();
+		}
 	}
 
 	private void setStatusNewRep()
@@ -51,8 +60,7 @@ public class GUICRepositoryLogin implements ITranslation
 		guireplogin.getBtn_rep_choose().setEnabled(true);
 
 		guireplogin.getCbx_repname().removeAllItems();
-		guireplogin.getLbl_repcreationdate_dat()
-				.setText(DateTimeFormat.getCurrentDate(DateTimeFormat.c_dd_MM_yyyy_point));
+		guireplogin.getLbl_repcreationdate_dat().setText(DateTimeFormat.getCurrentDate(DateTimeFormat.c_dd_MM_yyyy_point));
 		guireplogin.getLbl_repversion_dat().setText(CHibernate.REPOSITORY_VERSION);
 		guireplogin.getTxt_repcreator().setEditable(true);
 		guireplogin.getTxt_repcreator().setText(null);
@@ -63,7 +71,7 @@ public class GUICRepositoryLogin implements ITranslation
 
 	}
 
-	private void setStatusChooseRep(List<?> p_listrepo)
+	private void setStatusChooseRep(List<Repinfo> p_listrepo)
 	{
 		// set accessibility
 		guireplogin.getCbx_database().setEnabled(false);
@@ -99,20 +107,24 @@ public class GUICRepositoryLogin implements ITranslation
 
 	}
 
-	private void initializeGUI()
+	private void initCbxDatabases()
 	{
 		// init database combobox
+		guireplogin.getCbx_database().removeAllItems();
+
 		for (CHibernate.databases db : CHibernate.databases.values())
 		{
 			ComboBoxKey key = null;
 
 			switch (db)
 			{
-			case FORFEDREDB:
-				key = new ComboBoxKey(db, GUICRepositoryLogin.ROOTSDB_DESCRIPTION);
-				break;
-			case MYSQL:
-				key = new ComboBoxKey(db, GUICRepositoryLogin.MYSQL_DESCRIPTION);
+				case FORFEDREDB:
+					key = new ComboBoxKey(db, GUICRepositoryLogin.ROOTSDB_DESCRIPTION);
+					break;
+
+				case MYSQL:
+					key = new ComboBoxKey(db, GUICRepositoryLogin.MYSQL_DESCRIPTION);
+					break;
 			}
 
 			guireplogin.getCbx_database().addItem(key);
@@ -168,7 +180,8 @@ public class GUICRepositoryLogin implements ITranslation
 				guireplogin.getCbx_account_spass().setSelected(false);
 			}
 
-		} else
+		}
+		else
 		{
 			guireplogin.getTxf_db_location().setText(null);
 			guireplogin.getTxf_db_name().setText(null);
@@ -189,12 +202,13 @@ public class GUICRepositoryLogin implements ITranslation
 		do_translation(guimaincontroller.getConfigEntity().getLanguage());
 	}
 
-	public void dbConnected(List<?> p_replist)
+	public void dbConnected(List<Repinfo> p_replist)
 	{
 		if (p_replist.isEmpty())
 		{
 			setStatusNewRep();
-		} else
+		}
+		else
 		{
 			setStatusChooseRep(p_replist);
 		}
@@ -235,8 +249,7 @@ public class GUICRepositoryLogin implements ITranslation
 		// TODO check parameter
 
 		// login database
-		this.guimaincontroller.loginDatabase(comboboxkey.getDatabase(), dblocation, dbname, username, password,
-				keeppassword);
+		this.guimaincontroller.loginDatabase(comboboxkey.getDatabase(), dblocation, dbname, username, password, keeppassword);
 
 		guireplogin.getBtn_db_connect().setEnabled(false);
 	}
@@ -262,43 +275,51 @@ public class GUICRepositoryLogin implements ITranslation
 
 		switch (comboboxkey.getDatabase())
 		{
-		case FORFEDREDB:
-			guireplogin.getTxf_db_location().setEnabled(false);
-			guireplogin.getTxf_db_name().setEnabled(false);
-			guireplogin.getTextField_1().setEnabled(false);
-			guireplogin.getTextField_1_1().setEnabled(false);
-			guireplogin.getCbx_account_spass().setEnabled(false);
+			case FORFEDREDB:
+				guireplogin.getTxf_db_location().setEnabled(false);
+				guireplogin.getTxf_db_name().setEnabled(false);
+				guireplogin.getTextField_1().setEnabled(false);
+				guireplogin.getTextField_1_1().setEnabled(false);
+				guireplogin.getCbx_account_spass().setEnabled(false);
 
-			guireplogin.getTxf_db_location().setText(CHibernate.ROOTS_DB_LOC);
-			guireplogin.getTxf_db_name().setText(CHibernate.ROOTS_DB_CURL);
-			guireplogin.getTextField_1().setText(CHibernate.HSQLDB_USER);
-			guireplogin.getTextField_1_1().setText(null);
-			guireplogin.getCbx_account_spass().setSelected(false);
-			break;
-		default:
+				guireplogin.getTxf_db_location().setText(CHibernate.ROOTS_DB_LOC);
+				guireplogin.getTxf_db_name().setText(CHibernate.ROOTS_DB_CURL);
+				guireplogin.getTextField_1().setText(CHibernate.HSQLDB_USER);
+				guireplogin.getTextField_1_1().setText(null);
+				guireplogin.getCbx_account_spass().setSelected(false);
+				break;
+			default:
 
-			guireplogin.getTxf_db_location().setEnabled(true);
-			guireplogin.getTxf_db_name().setEnabled(true);
-			guireplogin.getTextField_1().setEnabled(true);
-			guireplogin.getTextField_1_1().setEnabled(true);
-			guireplogin.getCbx_account_spass().setEnabled(true);
+				guireplogin.getTxf_db_location().setEnabled(true);
+				guireplogin.getTxf_db_name().setEnabled(true);
+				guireplogin.getTextField_1().setEnabled(true);
+				guireplogin.getTextField_1_1().setEnabled(true);
+				guireplogin.getCbx_account_spass().setEnabled(true);
 
-			guireplogin.getTxf_db_location().setText(null);
-			guireplogin.getTxf_db_name().setText(null);
-			guireplogin.getTextField_1().setText(null);
-			guireplogin.getTextField_1_1().setText(null);
-			guireplogin.getCbx_account_spass().setSelected(false);
+				guireplogin.getTxf_db_location().setText(null);
+				guireplogin.getTxf_db_name().setText(null);
+				guireplogin.getTextField_1().setText(null);
+				guireplogin.getTextField_1_1().setText(null);
+				guireplogin.getCbx_account_spass().setSelected(false);
 
-			break;
+				break;
 		}
+	}
+
+	protected void chooseRepository(Repinfo repinfo)
+	{
+		MComboBoxRepKey model_cbrk = (MComboBoxRepKey) this.guireplogin.getCbx_repname().getModel();
+		model_cbrk.setSelectedRepinfoItem(repinfo);
+		guimaincontroller.chooseRepository(repinfo);
 	}
 
 	protected void chooseRepository()
 	{
-		ComboBoxRepKey ck = MComboBoxRepKey.getSelectedComboBoxKeyItem();
+		MComboBoxRepKey model_cbrk = (MComboBoxRepKey) this.guireplogin.getCbx_repname().getModel();
+		ComboBoxRepKey ck =  model_cbrk.getSelectedComboBoxKeyItem();
 
 		guimaincontroller.chooseRepository(ck.getRepinfo());
-		
+
 		guimaincontroller.closeGUIRepositoryLogin();
 	}
 
@@ -310,7 +331,7 @@ public class GUICRepositoryLogin implements ITranslation
 		String repcreator = guireplogin.getTxt_repcreator().getText();
 
 		guimaincontroller.createRepository(newrepname, repdesc, repcreator);
-		
+
 		guimaincontroller.closeGUIRepositoryLogin();
 	}
 
@@ -321,7 +342,8 @@ public class GUICRepositoryLogin implements ITranslation
 
 	protected void showSelectedRepository()
 	{
-		ComboBoxRepKey ck = MComboBoxRepKey.getSelectedComboBoxKeyItem();
+		MComboBoxRepKey model_cbrk = (MComboBoxRepKey) this.guireplogin.getCbx_repname().getModel();
+		ComboBoxRepKey ck =  model_cbrk.getSelectedComboBoxKeyItem();
 
 		if (ck.getNewrepname() == null)
 		{
