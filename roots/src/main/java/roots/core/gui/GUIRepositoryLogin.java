@@ -94,8 +94,40 @@ public class GUIRepositoryLogin extends JPanel
 			panel_repmain = new JPanel();
 			panel_repmain.setBorder(null);
 			GroupLayout gl_panel_repmain = new GroupLayout(panel_repmain);
-			gl_panel_repmain.setHorizontalGroup(gl_panel_repmain.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel_repmain.createSequentialGroup().addGroup(gl_panel_repmain.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel_repmain.createSequentialGroup().addContainerGap().addComponent(getBtn_db_connect())).addGroup(gl_panel_repmain.createParallelGroup(Alignment.TRAILING).addGroup(gl_panel_repmain.createSequentialGroup().addContainerGap().addComponent(getBtn_rep_choose())).addGroup(gl_panel_repmain.createSequentialGroup().addGap(4).addGroup(gl_panel_repmain.createParallelGroup(Alignment.LEADING).addComponent(getPanel_1(), GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE).addComponent(getPanel_repdb(), GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE).addComponent(getPanel_rep(), GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))))).addGap(86)));
-			gl_panel_repmain.setVerticalGroup(gl_panel_repmain.createParallelGroup(Alignment.LEADING).addGroup(gl_panel_repmain.createSequentialGroup().addGap(11).addComponent(getPanel_repdb(), GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE).addGap(18).addComponent(getPanel_1(), GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED).addComponent(getBtn_db_connect()).addGap(46).addComponent(getPanel_rep(), GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE).addPreferredGap(ComponentPlacement.RELATED).addComponent(getBtn_rep_choose()).addContainerGap(99, Short.MAX_VALUE)));
+			gl_panel_repmain.setHorizontalGroup(
+				gl_panel_repmain.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_panel_repmain.createSequentialGroup()
+						.addGroup(gl_panel_repmain.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_panel_repmain.createSequentialGroup()
+								.addContainerGap()
+								.addComponent(getBtn_db_connect()))
+							.addGroup(gl_panel_repmain.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel_repmain.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(getBtn_rep_choose()))
+								.addGroup(gl_panel_repmain.createSequentialGroup()
+									.addGap(4)
+									.addGroup(gl_panel_repmain.createParallelGroup(Alignment.LEADING)
+										.addComponent(getPanel_1(), GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+										.addComponent(getPanel_rep(), GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+										.addComponent(getPanel_repdb(), GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)))))
+						.addGap(86))
+			);
+			gl_panel_repmain.setVerticalGroup(
+				gl_panel_repmain.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panel_repmain.createSequentialGroup()
+						.addGap(11)
+						.addComponent(getPanel_repdb(), GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getPanel_1(), GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtn_db_connect())
+						.addGap(46)
+						.addComponent(getPanel_rep(), GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtn_rep_choose())
+						.addContainerGap(99, Short.MAX_VALUE))
+			);
 			gl_panel_repmain.setAutoCreateContainerGaps(true);
 			gl_panel_repmain.setAutoCreateGaps(true);
 			panel_repmain.setLayout(gl_panel_repmain);
