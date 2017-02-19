@@ -4,11 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 
 import roots.plugin.IPlugin;
 import roots.plugin.IPluginManager;
 import roots.translation.ITranslation.enum_language;
+import roots.plugin.programs.edit.person.icon.SystemResourceIcons;
 import roots.plugin.programs.edit.person.translation.TPEditPerson;
 
 public class CPlugin implements IPlugin
@@ -39,8 +41,7 @@ public class CPlugin implements IPlugin
 					startProgram();
 				}
 			});
-			// mi_programs_edit_person.setIcon(new
-			// ImageIcon(this.getClass().getResource("/forfedre/plugin/info/about/icons/about.png")));
+			mi_programs_edit_person.setIcon(new ImageIcon(this.getClass().getResource(SystemResourceIcons.ICON_PROGRAM)));
 			mi_programs_edit_person.setName("MI_PROGRAMS_EDIT_PERSON");
 		}
 		return mi_programs_edit_person;

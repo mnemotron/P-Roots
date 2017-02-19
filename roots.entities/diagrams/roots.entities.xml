@@ -3,8 +3,19 @@
 		<entity-name>roots.entities.EventAttribute</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>166</entity-height>
-		<entity-X-Coordinate>935</entity-X-Coordinate>
-		<entity-Y-Coordinate>572</entity-Y-Coordinate>
+		<entity-X-Coordinate>438</entity-X-Coordinate>
+		<entity-Y-Coordinate>580</entity-Y-Coordinate>
+		<primary-collapsed>false</primary-collapsed>
+		<relation-collapsed>false</relation-collapsed>
+		<basic-collapsed>false</basic-collapsed>
+	</entity>
+
+	<entity>
+		<entity-name>roots.entities.EventValueType</entity-name>
+		<entity-width>120</entity-width>
+		<entity-height>166</entity-height>
+		<entity-X-Coordinate>188</entity-X-Coordinate>
+		<entity-Y-Coordinate>541</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -16,17 +27,6 @@
 		<entity-height>146</entity-height>
 		<entity-X-Coordinate>20</entity-X-Coordinate>
 		<entity-Y-Coordinate>18</entity-Y-Coordinate>
-		<primary-collapsed>false</primary-collapsed>
-		<relation-collapsed>false</relation-collapsed>
-		<basic-collapsed>false</basic-collapsed>
-	</entity>
-
-	<entity>
-		<entity-name>roots.entities.EventValueType</entity-name>
-		<entity-width>120</entity-width>
-		<entity-height>166</entity-height>
-		<entity-X-Coordinate>275</entity-X-Coordinate>
-		<entity-Y-Coordinate>572</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -58,8 +58,8 @@
 		<entity-name>roots.entities.EventTypeData</entity-name>
 		<entity-width>120</entity-width>
 		<entity-height>246</entity-height>
-		<entity-X-Coordinate>480</entity-X-Coordinate>
-		<entity-Y-Coordinate>512</entity-Y-Coordinate>
+		<entity-X-Coordinate>706</entity-X-Coordinate>
+		<entity-Y-Coordinate>504</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -77,22 +77,22 @@
 	</entity>
 
 	<entity>
-		<entity-name>roots.entities.Family</entity-name>
+		<entity-name>roots.entities.Person</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>188</entity-height>
-		<entity-X-Coordinate>511</entity-X-Coordinate>
-		<entity-Y-Coordinate>18</entity-Y-Coordinate>
+		<entity-height>226</entity-height>
+		<entity-X-Coordinate>1142</entity-X-Coordinate>
+		<entity-Y-Coordinate>2</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
-		<entity-name>roots.entities.Person</entity-name>
+		<entity-name>roots.entities.Family</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>226</entity-height>
-		<entity-X-Coordinate>1142</entity-X-Coordinate>
-		<entity-Y-Coordinate>2</entity-Y-Coordinate>
+		<entity-height>188</entity-height>
+		<entity-X-Coordinate>511</entity-X-Coordinate>
+		<entity-Y-Coordinate>18</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
@@ -121,22 +121,22 @@
 	</entity>
 
 	<entity>
-		<entity-name>roots.entities.EventType</entity-name>
+		<entity-name>roots.entities.Media</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>186</entity-height>
-		<entity-X-Coordinate>720</entity-X-Coordinate>
-		<entity-Y-Coordinate>572</entity-Y-Coordinate>
+		<entity-height>306</entity-height>
+		<entity-X-Coordinate>1510</entity-X-Coordinate>
+		<entity-Y-Coordinate>250</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
 	</entity>
 
 	<entity>
-		<entity-name>roots.entities.Media</entity-name>
+		<entity-name>roots.entities.EventType</entity-name>
 		<entity-width>120</entity-width>
-		<entity-height>306</entity-height>
-		<entity-X-Coordinate>1510</entity-X-Coordinate>
-		<entity-Y-Coordinate>250</entity-Y-Coordinate>
+		<entity-height>186</entity-height>
+		<entity-X-Coordinate>928</entity-X-Coordinate>
+		<entity-Y-Coordinate>570</entity-Y-Coordinate>
 		<primary-collapsed>false</primary-collapsed>
 		<relation-collapsed>false</relation-collapsed>
 		<basic-collapsed>false</basic-collapsed>
