@@ -1,4 +1,4 @@
-package roots.plugin.programs.edit.person.gui.events;
+package roots.plugin.programs.edit.person.gui.event;
 
 import javax.swing.JPanel;
 

@@ -1,9 +1,9 @@
-package roots.plugin.programs.edit.person.gui.events;
+package roots.plugin.programs.edit.person.gui.event;
 
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import roots.plugin.programs.edit.person.gui.events.birth.GUIEventBirth;
+import roots.plugin.programs.edit.person.gui.event.birth.GUIEventBirth;
 
 import java.awt.BorderLayout;
 
