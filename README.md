@@ -2,7 +2,7 @@
 **!!! I am looking for developers, who are interested in the development of an ancestral research program !!!**
 ***
 <p align="center">
-  <img src="https://gitlab.com/mnemotron/Roots/raw/master/roots.doc/logo/roots_logo.png" height="400">
+  <img src="/roots.doc/logo/roots_logo.png" height="400">
 </p>
 
 # Roots
