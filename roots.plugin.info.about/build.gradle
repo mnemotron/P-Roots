@@ -27,10 +27,13 @@ dependencies {
 // SOURCE SET
 sourceSets {
     main {
-        resources {
-            srcDir 'src/main/java/' 
-        }
-    }
+            java {
+            	srcDir 'src'
+        	}
+        	resources {
+            	srcDir 'src' 
+        	}
+    	}
 }
 
 // TASKS

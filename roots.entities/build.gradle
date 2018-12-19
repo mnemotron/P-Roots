@@ -14,7 +14,7 @@ jar {
 
 // DEPENDENCIES
 dependencies {
-	compile fileTree(dir: 'libs/eclipselink-2.5.2', include: ['*.jar'])
+	compile fileTree(dir: 'lib/eclipselink-2.5.2', include: ['*.jar'])
 }
 
 // SOURCE SETS

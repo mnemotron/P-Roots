@@ -38,19 +38,22 @@ jar {
 dependencies {
     compile "roots.entities:roots.entities:1.0"
     compile "roots.plugin:roots.plugin:1.0"
-	compile fileTree(dir: 'libs/hibernate', include: ['*.jar'])
-	compile fileTree(dir: 'libs/jdbc', include: ['*.jar'])
-	compile fileTree(dir: 'libs/log4j', include: ['*.jar'])
-	compile fileTree(dir: 'libs/lookandfeel', include: ['*.jar'])
-	compile fileTree(dir: 'libs/swingx', include: ['*.jar'])
-	compile fileTree(dir: '../roots.entities/libs/eclipselink-2.5.2', include: ['*.jar'])
+	compile fileTree(dir: 'lib/hibernate', include: ['*.jar'])
+	compile fileTree(dir: 'lib/jdbc', include: ['*.jar'])
+	compile fileTree(dir: 'lib/log4j', include: ['*.jar'])
+	compile fileTree(dir: 'lib/lookandfeel', include: ['*.jar'])
+	compile fileTree(dir: 'lib/swingx', include: ['*.jar'])
+	compile fileTree(dir: '../roots.entities/lib/eclipselink-2.5.2', include: ['*.jar'])
 }
 
 // SOURCE SET
 sourceSets {
     main {
-        resources {
-            srcDir 'src/main/java/' 
-        }
-    }
+            java {
+            	srcDir 'src'
+        	}
+        	resources {
+            	srcDir 'src' 
+        	}
+    	}
 }
